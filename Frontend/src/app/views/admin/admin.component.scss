@@ -1,0 +1,72 @@
+:host {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.admin {
+    display: flex;
+    flex-direction: row;
+    row-gap: 1rem;
+    flex-grow: 1;
+    column-gap: 1rem;
+}
+
+.admin-routes, .admin-route-page {
+    display: flex;
+    background: var(--background-1);
+    border-radius: var(--border-radius);
+    overflow-y: auto;
+    border: var(--border);
+}
+
+.admin-routes {
+    flex-direction: column;
+    height: 100%;
+    width: 200px;
+    background: var(--foreground-0);
+}
+
+.admin-option {
+    height: 50px;
+    border: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+    &.active {
+        background: var(--foreground-0);
+        color: var(--background-0);
+    }
+}
+
+.admin-option:first-child {
+    border-radius: 0;
+
+    &.active {
+    }
+}
+
+.admin-option:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.admin-option:not(:last-child) {
+    //border-bottom: var(--border)
+}
+
+.admin-route-page {
+    display: flex;
+    flex-grow: 1;
+    background: var(--background-1);
+    padding: 1rem;
+}
+
+.fill {
+    background: var(--background-1);
+    flex-grow: 1;
+}

@@ -68,10 +68,10 @@ $dropdown-width: 150px;
 .theme-dropdown {
     display: flex;
     flex-direction: column;
-    width: 150px;
+    width: 200px;
     z-index: 3;
     position: absolute;
-    right: $dropdown-width;
+    right: $dropdown-width - 2;
     top: -1px;
     border-radius: var(--border-radius);
     border-top-right-radius: 0;
@@ -105,7 +105,7 @@ $dropdown-width: 150px;
     background: var(--background-2);
     z-index: 4;
     top: 0;
-    right: $dropdown-width;
+    right: $dropdown-width - 2;
     height: 60px;
     width: 1px;
 }

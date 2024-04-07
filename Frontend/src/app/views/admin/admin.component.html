@@ -1,0 +1,14 @@
+<div class="admin">
+    <div class="admin-routes">
+        <a class="button admin-option" [ngClass]="{active: currentRoute('users')}" [routerLink]="'users'">
+            Users
+        </a>
+        <a class="button admin-option" [ngClass]="{active: currentRoute('roles')}" [routerLink]="'roles'">
+            Roles
+        </a>
+        <div class="fill"></div>
+    </div>
+    <div class="admin-route-page">
+        <router-outlet></router-outlet>
+    </div>
+</div>

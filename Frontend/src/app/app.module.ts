@@ -12,6 +12,9 @@ import {FormsModule} from '@angular/forms';
 import { SidebarItemComponent } from './components/sidebar-item/sidebar-item.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { AdminComponent } from './views/admin/admin.component';
+import { UsersComponent } from './views/admin/users/users.component';
+import { RolesComponent } from './views/admin/roles/roles.component';
 
 @NgModule({
               declarations: [
@@ -22,7 +25,10 @@ import { SettingsComponent } from './views/settings/settings.component';
                   InputComponent,
                   SidebarItemComponent,
                   SidebarComponent,
-                  SettingsComponent
+                  SettingsComponent,
+                  AdminComponent,
+                  UsersComponent,
+                  RolesComponent
               ],
               imports: [
                   BrowserModule,

@@ -10,10 +10,10 @@
 <!--        </ng-container>-->
 <!--    </button>-->
     <div class="top">
-        <app-sidebar-item type="link" [text]="'Dashboard'" icon="fa-house" route="" text="Dashboard" [isExpanded]="isExpanded"></app-sidebar-item>
+        <app-sidebar-item type="link" [text]="'Dashboard'" icon="fa-house" route=""[isExpanded]="isExpanded"></app-sidebar-item>
     </div>
     <div class="bottom">
-        <app-sidebar-item type="link" [text]="'Users'" icon="fa-users" route="" text="Dashboard" [isExpanded]="isExpanded"></app-sidebar-item>
-        <app-sidebar-item type="link" [text]="'Settings'" icon="fa-gear" route="settings" text="Dashboard" [isExpanded]="isExpanded"></app-sidebar-item>
+        <app-sidebar-item type="link" [text]="'Admin'" icon="fa-lock" route="admin" [isExpanded]="isExpanded"></app-sidebar-item>
+        <app-sidebar-item type="link" [text]="'Settings'" icon="fa-gear" route="settings" [isExpanded]="isExpanded"></app-sidebar-item>
     </div>
 </div>

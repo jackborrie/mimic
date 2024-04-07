@@ -14,15 +14,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     protected isExpanded: boolean = false;
 
-    protected testSidebarItem: SidebarItem = {
-        text: 'test',
-        icon: 'fa-user',
-        type: 'button',
-        callback: () => {
-            console.log('hi')
-        }
-    }
-
     public constructor (
         private _state: AppStateService
     ) {
