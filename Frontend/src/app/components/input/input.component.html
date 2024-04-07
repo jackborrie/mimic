@@ -1,0 +1,6 @@
+<div class="input-component" [ngClass]="{errored: errored}">
+    <label class="input-label" [ngClass]="{focused: focused}" (click)="handleLabelClick()">{{label}}</label>
+    <input #input class="input" type="{{type}}" [(ngModel)]="value" (focus)="handleFocusIn()" (blur)="handleFocusOut()">
+    <div class="info">{{infoText}}</div>
+    <div class="error" *ngIf="errored">{{errorText}}</div>
+</div>

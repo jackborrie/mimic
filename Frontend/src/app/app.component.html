@@ -1,0 +1,15 @@
+<div class="main-container {{theme?.class}}">
+    <div class="header">
+        <div class="pull-right">
+            <app-user-dropdown *ngIf="loggedIn"></app-user-dropdown>
+        </div>
+    </div>
+    <div class="body">
+        <div class="sidebar" [ngClass]="{out: isExpanded}" *ngIf="loggedIn">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="user-dropdown" [ngClass]="{down: showDropdown, out: showThemeDropdown}">
+    <button class="icon-button" (click)="toggleDropdown()">
+        <i class="fa-solid fa-user"></i>
+    </button>
+    <div class="border-fix" [ngClass]="{hidden: !showDropdown}"></div>
+    <div class="dropdown" [ngClass]="{hidden: !showDropdown}">
+        <button class="button dropdown-item">
+            User Settings
+        </button>
+        <div class="theme-dropdown-button">
+            <button class="button dropdown-item" (click)="showThemeDropdown = !showThemeDropdown">
+                <i class="fa-solid fa-caret-left" *ngIf="!showThemeDropdown"></i>
+                <i class="fa-solid fa-caret-right" *ngIf="showThemeDropdown"></i>
+                Theme
+            </button>
+            <div class="border-fix-2" [ngClass]="{hidden: !showThemeDropdown}"></div>
+            <div class="theme-dropdown" [ngClass]="{hidden: !showThemeDropdown}">
+                <button class="button dropdown-item" [disabled]="theme.name === currentTheme.name" (click)="setTheme(theme)" *ngFor="let theme of themes">
+                    {{theme.name}}
+                </button>
+            </div>
+        </div>
+        <button class="button dropdown-item" (click)="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </button>
+    </div>
+</div>
