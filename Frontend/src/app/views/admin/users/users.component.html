@@ -1,32 +1,36 @@
 <div class="users">
-    <table class="user-table">
-        <tr>
-            <th>A</th>
-            <th>B</th>
-            <th>C</th>
-            <th>D</th>
-        </tr>
-        <tr>
-            <td>
-                <div class="table-cell">
-                    ASD
-                </div>
-            </td>
-            <td>
-                <div class="table-cell">
-                    ASD
-                </div>
-            </td>
-            <td>
-                <div class="table-cell">
-                    ASD
-                </div>
-            </td>
-            <td>
-                <div class="table-cell">
-                    ASD
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="user-search">
+        <app-input type="text" ></app-input>
+        <button class="icon-button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+    <m-table [columns]="['username', 'email', 'actions']" [rows]="products">
+        <ng-template mTemplate="usernameHeader">
+            <th>
+                Username
+            </th>
+        </ng-template>
+        <ng-template mTemplate="emailHeader">
+            <th>
+                Email
+            </th>
+        </ng-template>
+        <ng-template mTemplate="actionsHeader">
+            <th></th>
+        </ng-template>
+        <ng-template mTemplate="username" let-data>
+            <div class="test">
+                {{data.username}}
+            </div>
+        </ng-template>
+        <ng-template mTemplate="email" let-data>
+            {{data.email}}
+        </ng-template>
+        <ng-template mTemplate="actions" let-data>
+            <button class="icon-button">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </ng-template>
+    </m-table>
 </div>

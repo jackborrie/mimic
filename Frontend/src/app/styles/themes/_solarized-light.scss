@@ -1,0 +1,26 @@
+.solarized-light {
+    --background-0: #fdf6e3;
+    --background-1: #eee8d5;
+    --background-2: #93a1a1;
+    --background-3: #839496;
+    --background-4: #657b83;
+
+    --foreground-0: #002b36;
+    --foreground-1: #073642;
+    --foreground-2: #586e75;
+    --foreground-3: #586e75;
+    --foreground-4: #586e75;
+
+    --yellow:    #b58900;
+    --orange:    #cb4b16;
+    --red:       #dc322f;
+    --magenta:   #d33682;
+    --violet:    #6c71c4;
+    --blue:      #268bd2;
+    --cyan:      #2aa198;
+    --green:     #859900;
+
+    --border-radius: 0;
+    --border: 1px solid var(--foreground-0);
+    --border-inverse: 1px solid var(--background-0);
+}

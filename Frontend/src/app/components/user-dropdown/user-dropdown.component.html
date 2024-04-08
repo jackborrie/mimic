@@ -8,7 +8,7 @@
             User Settings
         </button>
         <div class="theme-dropdown-button">
-            <button class="button dropdown-item" (click)="showThemeDropdown = !showThemeDropdown">
+            <button class="button dropdown-item text-icon-split" (click)="showThemeDropdown = !showThemeDropdown">
                 <i class="fa-solid fa-caret-left" *ngIf="!showThemeDropdown"></i>
                 <i class="fa-solid fa-caret-right" *ngIf="showThemeDropdown"></i>
                 Theme
@@ -20,7 +20,7 @@
                 </button>
             </div>
         </div>
-        <button class="button dropdown-item" (click)="logout()">
+        <button class="button dropdown-item text-icon-split" (click)="logout()">
             <i class="fa-solid fa-right-from-bracket"></i>
             Logout
         </button>

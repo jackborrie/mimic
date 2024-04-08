@@ -1,0 +1,49 @@
+.catppuccin-latte {
+    --background-0: #e6e9ef;
+    --background-1: #eff1f5;
+    --background-2: #ccd0da;
+    --background-3: #bcc0cc;
+    --background-4: #acb0be;
+
+    --foreground-0: #4c4f69;
+    --foreground-1: #5c5f77;
+    --foreground-2: #6c6f85;
+    --foreground-3: #7c7f93;
+    --foreground-4: #8c8fa1;
+
+    --red:       #d20f39;
+    --yellow:    #df8e1d;
+    --orange:    #fe640b;
+    --magenta:   #dd7878;
+    --violet:    #7287fd;
+    --blue:      #04a5e5;
+    --cyan:      #179299;
+    --green:     #40a02b;
+
+    --border-radius: 1rem;
+    --border: 1px solid var(--foreground-0);
+    --border-inverse: 1px solid var(--background-0);
+
+    &.main-container {
+        padding: 1rem;
+        row-gap: 1rem;
+    }
+
+    .header {
+        border-radius: var(--border-radius);
+        border: var(--border);
+    }
+
+    .body {
+        column-gap: 1rem;
+
+        & > .sidebar {
+            border: var(--border);
+            border-radius: var(--border-radius);
+        }
+
+        & > .content {
+            padding: 0;
+        }
+    }
+}

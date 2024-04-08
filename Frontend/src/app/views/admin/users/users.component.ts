@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './users.component.scss'
 })
 export class UsersComponent {
-
+    protected products: any[] = [
+        {username: 'test', email: 'test@test.com'},
+        {username: 'test', email: 'test@test.com'},
+        {username: 'test', email: 'test@test.com'},
+        {username: 'test', email: 'test@test.com'},
+        {username: 'test', email: 'test@test.com'}
+    ]
 }

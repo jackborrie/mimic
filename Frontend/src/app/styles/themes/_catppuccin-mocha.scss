@@ -1,0 +1,50 @@
+
+.catppuccin-mocha {
+    --background-0: #181825;
+    --background-1: #1e1e2e;
+    --background-2: #313244;
+    --background-3: #45475a;
+    --background-4: #585b70;
+
+    --foreground-0: #cdd6f4;
+    --foreground-1: #bac2de;
+    --foreground-2: #a6adc8;
+    --foreground-3: #9399b2;
+    --foreground-4: #7f849c;
+
+    --red:       #f38ba8;
+    --yellow:    #f9e2af;
+    --orange:    #fab387;
+    --magenta:   #eba0ac;
+    --violet:    #b4befe;
+    --blue:      #89dceb;
+    --cyan:      #94e2d5;
+    --green:     #a6e3a1;
+
+    --border-radius: 5px;
+    --border: 1px solid var(--foreground-0);
+    --border-inverse: 1px solid var(--background-0);
+
+    &.main-container {
+        padding: 1rem;
+        row-gap: 1rem;
+    }
+
+    .header {
+        border-radius: var(--border-radius);
+        border: var(--border);
+    }
+
+    .body {
+        column-gap: 1rem;
+
+        & > .sidebar {
+            border: var(--border);
+            border-radius: var(--border-radius);
+        }
+
+        & > .content {
+            padding: 0;
+        }
+    }
+}
