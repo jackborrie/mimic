@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mimic.Models;
+using Mimic.Models.Identities;
 
 namespace Mimic.Controllers
 {

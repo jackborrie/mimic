@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Mimic;
 using Mimic.Lib;
 using Mimic.Models;
+using Mimic.Models.Identities;
 
 var devCors = "AllowDev";
 

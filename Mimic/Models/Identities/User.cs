@@ -1,7 +1,6 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace Mimic.Models;
+namespace Mimic.Models.Identities;
 
 public class User : IdentityUser
 {

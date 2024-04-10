@@ -1,7 +1,7 @@
 <div class="main-container {{theme?.class}}">
-    <div class="header">
+    <div class="header" *ngIf="loggedIn">
         <div class="pull-right">
-            <app-user-dropdown *ngIf="loggedIn"></app-user-dropdown>
+            <app-user-dropdown></app-user-dropdown>
         </div>
     </div>
     <div class="body">
@@ -10,6 +10,12 @@
         </div>
         <div class="content">
             <router-outlet></router-outlet>
+        </div>
+    </div>
+
+    <div *ngIf="dialogOpen" class="dialog-container" (click)="handleDialogBackgroundClick($event)">
+        <div #dialog class="dialog">
+            <ng-container *ngTemplateOutlet="getDialog()"></ng-container>
         </div>
     </div>
 </div>

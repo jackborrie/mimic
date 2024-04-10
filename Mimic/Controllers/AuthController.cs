@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Mimic.Models;
+using Mimic.Models.Identities;
 
 namespace Mimic.Controllers
 {
@@ -87,11 +90,30 @@ namespace Mimic.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
 
+
+            var userRoles = _context.UserRoles.Where(role => role.UserId == user.Id).ToArray();
+
+            List<string> roles = new List<string>();
+            
+            foreach (var userRole in userRoles)
+            {
+                var r = _context.Roles.FirstOrDefault(role => role.Id == userRole.RoleId);
+
+                if (r == null || r.Name == null)
+                {
+                    continue;
+                }
+
+                roles.Add(r.Name);
+            }
+            
             // Use registration user as it has minimal things
             var userCopy = new MinimumUser()
             {
-                Email = user.Email,
-                Username = user.UserName
+                Id = user.Id,
+                Email = user.Email!,
+                Username = user.UserName!,
+                Roles = roles.ToArray()
             };
 
             var status = new Status

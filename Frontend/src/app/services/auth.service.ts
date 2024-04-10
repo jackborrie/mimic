@@ -2,7 +2,8 @@ import {Injectable}                                           from '@angular/cor
 import {map, Observable, Observer, of, Subject, Subscription} from 'rxjs';
 import {HttpClient, HttpHeaders}                              from '@angular/common/http';
 import {DateTime}                                             from 'luxon';
-import {Router}                                               from '@angular/router';
+import {Router} from '@angular/router';
+import {Status} from '../models/status';
 
 export interface LoginInterface {
     email: string,
@@ -15,26 +16,22 @@ export interface LoginTokenInterface {
     expiresIn: number
 }
 
-export interface StatusInterface {
-
-}
-
 @Injectable({
                 providedIn: 'root'
             })
 export class AuthService {
 
-    private _accessToken: string | null     = null;
-    private _refreshToken: string | null    = null;
-    private _expiresIn: number | null       = null;
-    private _expireDate: DateTime | null    = null;
-    private _status: StatusInterface | null = null;
+    private _accessToken: string | null  = null;
+    private _refreshToken: string | null = null;
+    private _expiresIn: number | null    = null;
+    private _expireDate: DateTime | null        = null;
+    private _status: Status | null              = null;
 
     public refreshing: boolean = false;
 
-    public $onRefreshResult: Subject<boolean>         = new Subject<boolean>();
-    public $onLoggedInChanged: Subject<boolean>       = new Subject<boolean>();
-    public $onStatusChanged: Subject<StatusInterface> = new Subject<StatusInterface>();
+    public $onRefreshResult: Subject<boolean>   = new Subject<boolean>();
+    public $onLoggedInChanged: Subject<boolean> = new Subject<boolean>();
+    public $onStatusChanged: Subject<Status>    = new Subject<Status>();
 
     constructor (private _http: HttpClient,
                  private _router: Router) {
@@ -119,19 +116,39 @@ export class AuthService {
     public logout () {
         let headers = this.addBearer(new HttpHeaders());
 
-        return this._http.post('http://localhost:5153/logout', null, {headers: headers}).pipe(map(() => {
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            localStorage.removeItem('expireDate');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('expireDate');
+        localStorage.removeItem('wasAdmin');
 
-            this._accessToken  = null;
-            this._refreshToken = null;
-            this._expiresIn    = null;
-            this._expireDate   = null;
+        this._accessToken  = null;
+        this._refreshToken = null;
+        this._expiresIn    = null;
+        this._expireDate   = null;
+
+        return this._http.post('http://localhost:5153/logout', null, {headers: headers}).pipe(map(() => {
             this.$onLoggedInChanged.next(false);
 
             this._router.navigate(['auth'])
         }));
+    }
+
+    public wasAdmin (): boolean {
+        if (this._status !== null) {
+            return false;
+        }
+
+        let wasAdminString = localStorage.getItem('wasAdmin');
+
+        if (wasAdminString == null || wasAdminString == '') {
+            return false;
+        }
+
+        return wasAdminString == 'true';
+    }
+
+    public hasStatus (): boolean {
+        return this._status != null;
     }
 
     private _handleLoginResponse (response: LoginTokenInterface) {
@@ -151,9 +168,33 @@ export class AuthService {
             return;
         }
         let headers = this.addBearer(new HttpHeaders());
-        this._http.get('http://localhost:5153/status', {headers: headers}).subscribe ((status) => {
-            console.log(status);
+        this._http.get<Status>('http://localhost:5153/status', {headers: headers}).subscribe((status: Status) => {
+            this._status = status
+
+            this.$onStatusChanged.next(status);
+
+            if (this.hasRead('admin')) {
+                localStorage.setItem('wasAdmin', 'true');
+            } else {
+                localStorage.removeItem('wasAdmin');
+            }
         });
+    }
+
+    public hasWrite (role: string): boolean {
+        if (this._status == null || this._status.user == null || this._status.user.roles == null) {
+            return false;
+        }
+
+        return this._status.user.roles.find(r => r === role + ':write') != null;
+    }
+
+    public hasRead (role: string): boolean {
+        if (this._status == null || this._status.user == null || this._status.user.roles == null) {
+            return false;
+        }
+
+        return this.hasWrite(role) || this._status.user.roles.find(r => r === role + ':read') != null;
     }
 
 }

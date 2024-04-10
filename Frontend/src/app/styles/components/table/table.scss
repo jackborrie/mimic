@@ -4,6 +4,7 @@
     border-collapse: collapse;
     border-radius: var(--border-radius);
     box-shadow: 0 0 0 1px var(--foreground-0);
+    /*table-layout: fixed;*/
 
     thead tr {
         background: var(--foreground-0);
@@ -23,6 +24,11 @@
             border-right: var(--border-inverse);
         }
     }
+}
+
+tr td:last-child {
+    width:1%;
+    white-space:nowrap;
 }
 
 .mimic-row {

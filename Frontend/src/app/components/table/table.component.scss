@@ -41,3 +41,10 @@
         border-bottom-right-radius: var(--border-radius);
     }
 }
+
+.no-records {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}

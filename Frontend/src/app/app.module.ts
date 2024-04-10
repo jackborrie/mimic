@@ -18,6 +18,7 @@ import {RolesComponent}          from './views/admin/roles/roles.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableComponent}          from './components/table/table.component';
 import {MimicTemplate}           from './directives/mimic-template.directive';
+import {MimicDialog}             from './directives/m-dialog.directive';
 
 @NgModule({
               declarations: [
@@ -33,7 +34,8 @@ import {MimicTemplate}           from './directives/mimic-template.directive';
                   UsersComponent,
                   RolesComponent,
                   TableComponent,
-                  MimicTemplate
+                  MimicTemplate,
+                  MimicDialog
               ],
               imports     : [
                   BrowserModule,

@@ -28,7 +28,7 @@ export class TableComponent implements AfterContentInit {
     columns!: string[];
 
     @Input()
-    rows!: any[];
+    rows!: any[] | null;
 
     @Input()
     showPagination: boolean = false;
@@ -38,12 +38,12 @@ export class TableComponent implements AfterContentInit {
 
 
     @Input()
-    protected totalPages: number  = 1;
+    totalPages: number  = 1;
 
     @Input()
-    protected allowedPageSizes: number[] = [5, 10, 15, 25];
+    protected allowedPageSizes: number[] = [10];
 
-    protected currentPage: number = 1;
+    protected currentPage: number = 0;
     protected currentPageSize: number    = 10;
     protected showPageSizeDropdown: boolean = false;
 

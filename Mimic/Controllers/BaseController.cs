@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Mimic.Models;
+using Mimic.Models.Identities;
 
 namespace Mimic.Controllers;
 

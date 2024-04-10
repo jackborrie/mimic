@@ -20,33 +20,42 @@
                 </ng-container>
             </tr>
         </tbody>
+        <tbody *ngIf="rows == null || rows.length <= 0">
+            <tr>
+                <td colspan="4">
+                    <div class="no-records">
+                        <ng-container *ngTemplateOutlet="getTemplate('no-records')"></ng-container>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
         <tfoot *ngIf="showPagination">
             <tr>
                 <td colspan="4">
                     <div class="pagination">
                         <div class="left"></div>
                         <div class="center">
-                            <button class="icon-button" [disabled]="currentPage == 1" (click)="setPage(1)">
+                            <button class="icon-button" [disabled]="currentPage == 0" (click)="setPage(1)">
                                 <i class="fa-solid fa-chevron-left"></i>
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
-                            <button class="icon-button" [disabled]="currentPage == 1" (click)="setPage(currentPage - 1)">
+                            <button class="icon-button" [disabled]="currentPage == 0" (click)="setPage(currentPage - 1)">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
                             <button class="icon-button invert" disabled>
-                                {{currentPage}}
+                                {{currentPage + 1}}
                             </button>
-                            <button class="icon-button" [disabled]="currentPage == totalPages" (click)="setPage(currentPage + 1)">
+                            <button class="icon-button" [disabled]="currentPage == totalPages - 1" (click)="setPage(currentPage + 1)">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
-                            <button class="icon-button" [disabled]="currentPage == totalPages" (click)="setPage(totalPages)">
+                            <button class="icon-button" [disabled]="currentPage == totalPages - 1" (click)="setPage(totalPages)">
                                 <i class="fa-solid fa-chevron-right"></i>
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
                         </div>
 
                         <div class="right">
-                            <div class="page-size-dropdown-wrapper">
+                            <div class="page-size-dropdown-wrapper" *ngIf="allowedPageSizes.length > 1">
                                 <button class="button text-icon-split" (click)="togglePageSizeDropdown()">
                                     {{currentPageSize}}
                                     <i class="fa-solid fa-caret-down"></i>

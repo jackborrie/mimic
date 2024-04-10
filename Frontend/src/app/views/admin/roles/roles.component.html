@@ -1,1 +1,54 @@
-Roles
+<div class="roles">
+    <div class="role-search">
+        <input type="text" class="input" [(ngModel)]="searchTerm" (keyup)="handleSearchTermChange()" >
+        <button class="icon-button" (click)="search()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button class="icon-button" (click)="create()">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
+    <m-table [columns]="['name', 'count', 'actions']" [rows]="roles" [totalPages]="totalPages" (paginationChanged)="onPaginationChange($event)" [showPagination]="true">
+        <ng-template mTemplate="nameHeader">
+            <th>
+                Name
+            </th>
+        </ng-template>
+        <ng-template mTemplate="countHeader">
+            <th>
+                Count
+            </th>
+        </ng-template>
+        <ng-template mTemplate="actionsHeader">
+            <th></th>
+        </ng-template>
+        <ng-template mTemplate="name" let-data>
+            <div class="test">
+                {{data.name}}
+            </div>
+        </ng-template>
+        <ng-template mTemplate="count" let-data>
+            {{data.count}}
+        </ng-template>
+        <ng-template mTemplate="actions" let-data>
+            <button class="icon-button">
+                <i class="fa-solid fa-pencil" *ngIf="adminWrite"></i>
+                <i class="fa-solid fa-eye" *ngIf="adminRead && !adminWrite"></i>
+            </button>
+        </ng-template>
+        <ng-template mTemplate="no-records" let-data>
+            No roles found.
+        </ng-template>
+    </m-table>
+</div>
+
+<ng-template class="div" [mDialog]="'test'">
+    <div class="role-dialog">
+        <label>Role name:</label>
+        <input class="input" [(ngModel)]="newRoleName">
+    </div>
+    <button class="button" (click)="onRoleCreate()">
+        Create
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</ng-template>
