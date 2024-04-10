@@ -196,6 +196,9 @@ namespace Mimic.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.InsertData("AspNetRoles", new[] { "Id", "Discriminator", "Name", "NormalizedName" }, new[] { Guid.NewGuid().ToString(), "UserRole", "admin:read", "ADMIN:READ" });
+            migrationBuilder.InsertData("AspNetRoles", new[] { "Id", "Discriminator", "Name", "NormalizedName" }, new[] { Guid.NewGuid().ToString(), "UserRole", "admin:write", "ADMIN:WRITE" });
         }
 
         /// <inheritdoc />
