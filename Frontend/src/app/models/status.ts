@@ -1,11 +1,11 @@
 export class StatusUser {
-    id: string | undefined;
-    username: string | undefined;
-    email: string | undefined;
-    roles: string[] | undefined;
+    id!: string;
+    username!: string;
+    email!: string;
+    roles!: string[];
 }
 
 
 export class Status {
-    user: StatusUser | undefined;
+    user!: StatusUser;
 }

@@ -1,21 +1,15 @@
 <ng-container *ngIf="display">
     <ng-container *ngIf="type === 'link'">
-        <a class="button sidebar-item" [ngClass]="{out: isExpanded}" [routerLink]="route">
+        <a class="button sidebar-item" [routerLink]="route">
             <div class="icon">
                 <i class="fa-solid {{icon}}"></i>
-            </div>
-            <div class="text" *ngIf="isExpanded">
-                {{text}}
             </div>
         </a>
     </ng-container>
     <ng-container *ngIf="type === 'button'">
-        <button (click)="handleButtonClick()" class="button sidebar-item" [ngClass]="{out: isExpanded}" >
+        <button (click)="handleButtonClick()" class="button sidebar-item">
             <div class="icon">
                 <i class="fa-solid {{icon}}"></i>
-            </div>
-            <div class="text" *ngIf="isExpanded">
-                {{text}}
             </div>
         </button>
     </ng-container>

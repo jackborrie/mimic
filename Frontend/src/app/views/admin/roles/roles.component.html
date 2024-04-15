@@ -4,11 +4,11 @@
         <button class="icon-button" (click)="search()">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-        <button class="icon-button" (click)="create()">
+        <button class="icon-button" (click)="create()" *ngIf="adminWrite">
             <i class="fa-solid fa-plus"></i>
         </button>
     </div>
-    <m-table [columns]="['name', 'count', 'actions']" [rows]="roles" [totalPages]="totalPages" (paginationChanged)="onPaginationChange($event)" [showPagination]="true">
+    <m-table [columns]="['name', 'count', 'actions']" [rows]="roles" [loading]="loading" [totalPages]="totalPages" (paginationChanged)="onPaginationChange($event)" [showPagination]="true">
         <ng-template mTemplate="nameHeader">
             <th>
                 Name
@@ -31,10 +31,15 @@
             {{data.count}}
         </ng-template>
         <ng-template mTemplate="actions" let-data>
-            <button class="icon-button">
-                <i class="fa-solid fa-pencil" *ngIf="adminWrite"></i>
-                <i class="fa-solid fa-eye" *ngIf="adminRead && !adminWrite"></i>
-            </button>
+            <div class="actions">
+                <button class="icon-button">
+                    <i class="fa-solid fa-pencil" *ngIf="adminWrite"></i>
+                    <i class="fa-solid fa-eye" *ngIf="adminRead && !adminWrite"></i>
+                </button>
+                <button class="icon-button" *ngIf="adminWrite">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
         </ng-template>
         <ng-template mTemplate="no-records" let-data>
             No roles found.
@@ -42,12 +47,12 @@
     </m-table>
 </div>
 
-<ng-template class="div" [mDialog]="'test'">
+<ng-template mDialog>
     <div class="role-dialog">
         <label>Role name:</label>
         <input class="input" [(ngModel)]="newRoleName">
     </div>
-    <button class="button" (click)="onRoleCreate()">
+    <button class="button text-icon-split" (click)="onRoleCreate()">
         Create
         <i class="fa-solid fa-plus"></i>
     </button>

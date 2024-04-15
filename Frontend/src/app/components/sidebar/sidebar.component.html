@@ -1,19 +1,10 @@
 <div class="sidebar">
-<!--    <button class="button toggle" [ngClass]="{out: isExpanded}" (click)="toggleSidebar()">-->
-<!--        <ng-container *ngIf="isExpanded">-->
-<!--            <i class="fa-solid fa-chevron-left"></i>-->
-<!--            <i class="fa-solid fa-chevron-left"></i>-->
-<!--        </ng-container>-->
-<!--        <ng-container *ngIf="!isExpanded">-->
-<!--            <i class="fa-solid fa-chevron-right"></i>-->
-<!--            <i class="fa-solid fa-chevron-right"></i>-->
-<!--        </ng-container>-->
-<!--    </button>-->
     <div class="top">
-        <app-sidebar-item type="link" [text]="'Dashboard'" icon="fa-house" route=""[isExpanded]="isExpanded"></app-sidebar-item>
+        <app-sidebar-item type="link" [label]="'Dashboard'" icon="fa-house" route=""></app-sidebar-item>
     </div>
     <div class="bottom">
-        <app-sidebar-item type="link" [text]="'Admin'" icon="fa-lock" route="admin" [isExpanded]="isExpanded"></app-sidebar-item>
-        <app-sidebar-item type="link" [text]="'Settings'" icon="fa-gear" route="settings" [isExpanded]="isExpanded"></app-sidebar-item>
+        <app-sidebar-item type="link" [label]="'Admin'" icon="fa-lock" route="admin"></app-sidebar-item>
+        <app-sidebar-item type="link" [label]="'Settings'" icon="fa-gear" route="settings"></app-sidebar-item>
+        <app-sidebar-item type="button" [label]="'Logout'" icon="fa-right-from-bracket" (buttonClick)="logout()"></app-sidebar-item>
     </div>
 </div>

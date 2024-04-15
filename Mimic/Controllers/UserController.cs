@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Mimic.Lib;
 using Mimic.Models;
 using Mimic.Models.Identities;
 
 namespace Mimic.Controllers
 {
-    
     [ApiController]
     [Route("api/user")]
     public class UserController : BaseController
@@ -18,17 +18,67 @@ namespace Mimic.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly MimicContext _context;
 
-        public UserController(ILogger<UserController> logger, MimicContext context, UserManager<User> userManager, RoleManager<UserRole> roleManager): base(userManager, roleManager)
+        public UserController(ILogger<UserController> logger, MimicContext context, UserManager<User> userManager,
+            RoleManager<UserRole> roleManager) : base(userManager, roleManager)
         {
             _logger = logger;
             _context = context;
         }
 
         [HttpGet(Name = "all_users")]
+        [Authorize(Roles = "admin:read,admin:write")]
         public IActionResult GetAll()
         {
-            var users = _context.Users.ToArray();
-            return StatusCode((int)HttpStatusCode.OK, users);
+            Request.Headers.TryGetValue("page", out var pageString);
+            Request.Headers.TryGetValue("search_term", out var searchTerm);
+            Request.Headers.TryGetValue("page_size", out var pageSizeString);
+            Request.Headers.TryGetValue("sort_by", out var sortByString);
+            Request.Headers.TryGetValue("sort_dir", out var sortDirection);
+
+            var page = Int32.Parse(pageString.FirstOrDefault("0"));
+            var pageSize = Int32.Parse(pageSizeString.FirstOrDefault("10"));
+            var sortBy = sortByString.FirstOrDefault("Username");
+
+            var r = _context.Users;
+
+            IQueryable<User> s;
+
+            //TODO Add searching here
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                s = r.Where(t => t.UserName.ToLower().Contains(searchTerm.ToString().ToLower()) ||
+                                 t.NormalizedUserName.ToLower().Contains(searchTerm.ToString().ToLower()) ||
+                                 t.Id == searchTerm.ToString() ||
+                                 t.Email.ToLower().Contains(searchTerm.ToString().ToLower()) ||
+                                 t.NormalizedEmail.ToLower().Contains(searchTerm.ToString()));
+            }
+            else
+            {
+                s = r;
+            }
+
+            IOrderedQueryable<User> sorted;
+            if (!string.IsNullOrEmpty(sortDirection) && sortDirection == "asc")
+            {
+                sorted = s.OrderByDescending(item => item.UserName);
+            }
+            else
+            {
+                sorted = s.OrderByDescending(item => item.UserName);
+            }
+
+            var count = s.Count();
+            var totalPages = (Int32)Math.Ceiling((float)count / (float)pageSize);
+
+            var rs = sorted.Paginate(pageSize * page, pageSize);
+
+                var output = new PaginatedResponse<User>
+            {
+                totalPages = totalPages,
+                data = rs
+            };
+
+            return StatusCode((int)HttpStatusCode.OK, output);
         }
 
         [HttpGet("{id}")]
@@ -98,9 +148,9 @@ namespace Mimic.Controllers
             {
                 return StatusCode((int)HttpStatusCode.NotFound, "Role with ID [" + roleId + "] does not exist.");
             }
-            
+
             Console.WriteLine(foundRole.Name);
-            
+
             var ir = await userManager.AddToRoleAsync(foundUser, foundRole.Name);
 
             return StatusCode((int)HttpStatusCode.OK, ir.ToString());

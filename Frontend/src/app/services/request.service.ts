@@ -1,7 +1,10 @@
 import {Injectable}              from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthService}     from './auth.service';
-import {map, Observable} from 'rxjs';
+import {AuthService}             from './auth.service';
+import {map, Observable}         from 'rxjs';
+import {FilteredData}            from '../models/filtered-data';
+import {activator, Model}        from '../models/model';
+import {User}                    from '../models/user';
 
 @Injectable({
                 providedIn: 'root'
@@ -24,17 +27,17 @@ export class RequestService {
         return this._httpClient.get(this._baseUrl + '/' + route, {headers: headers});
     }
 
-    public getAll(route: string, headers?: HttpHeaders): Observable<any> {
+    public getAll<T extends Model> (route: string, headers?: HttpHeaders): Observable<FilteredData<any>> {
         if (headers == null) {
             headers = new HttpHeaders();
         }
 
         headers = this._authService.addBearer(headers);
 
-        return this._httpClient.get(this._baseUrl + '/' + route, {headers: headers});
+        return this._httpClient.get<FilteredData<T>>(this._baseUrl + '/' + route, {headers: headers});
     }
 
-    public post (route: string, body: {[key: string]: any} | null, headers?: HttpHeaders) {
+    public post (route: string, body: { [key: string]: any } | null, headers?: HttpHeaders) {
         if (headers == null) {
             headers = new HttpHeaders();
         }
@@ -44,7 +47,7 @@ export class RequestService {
         return this._httpClient.post(this._baseUrl + '/' + route, body, {headers: headers});
     }
 
-    public put (route: string, body: {[key: string]: any} | null, headers?: HttpHeaders) {
+    public put (route: string, body: { [key: string]: any } | null, headers?: HttpHeaders) {
         return this._httpClient.put(this._baseUrl + '/' + route, body, {headers: headers});
     }
 

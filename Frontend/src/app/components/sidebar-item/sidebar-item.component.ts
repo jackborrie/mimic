@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 export type Position = 'top' | 'bottom';
 export type Type = 'link' | 'button' | 'header' | 'info';
@@ -15,7 +15,7 @@ export interface SidebarItem {
 }
 
 @Component({
-               selector   : 'app-sidebar-item[type][text]',
+               selector   : 'app-sidebar-item[type][label]',
                templateUrl: './sidebar-item.component.html',
                styleUrl   : './sidebar-item.component.scss'
            })
@@ -24,27 +24,22 @@ export class SidebarItemComponent implements OnInit {
     protected display: boolean = true;
 
     @Input()
-    isExpanded: boolean = false;
-
-    @Input()
-    text!: string;
+    label!: string;
     @Input()
     type!: Type;
     @Input()
     route?: string;
     @Input()
     icon?: string;
-    @Input()
-    callback?: () => void;
+    @Output()
+    buttonClick: EventEmitter<any> = new EventEmitter();
 
     protected handleButtonClick () {
-        if (this.callback != null) {
-            this.callback();
-        }
+        this.buttonClick.emit();
     }
 
     ngOnInit (): void {
-        if (this.text == null || this.text === '') {
+        if (this.label == null || this.label === '') {
             this.display = false;
             return;
         }
@@ -57,8 +52,7 @@ export class SidebarItemComponent implements OnInit {
                 }
                 break;
             case 'button':
-                if (this.callback == null ||
-                    this.icon == null || this.icon == '') {
+                if (this.icon == null || this.icon == '') {
                     this.display = false;
                 }
                 break;

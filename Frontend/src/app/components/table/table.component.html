@@ -7,7 +7,7 @@
                 </ng-container>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!loading">
             <tr *ngFor="let row of rows" class="mimic-row">
                 <ng-container *ngFor="let column of columns">
                     <td>
@@ -20,7 +20,16 @@
                 </ng-container>
             </tr>
         </tbody>
-        <tbody *ngIf="rows == null || rows.length <= 0">
+        <tbody *ngIf="loading">
+        <tr>
+            <td colspan="4">
+                <div class="loading">
+                    LOADING
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="!loading && (rows == null || rows.length <= 0)">
             <tr>
                 <td colspan="4">
                     <div class="no-records">

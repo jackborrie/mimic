@@ -26,7 +26,6 @@
 }
 
 .sidebar {
-    width: 60px;
     height: 100%;
     background: var(--background-1);
     transition: width 0.5s ease-in-out;
@@ -44,3 +43,8 @@
     background: var(--background-0);
 }
 
+.dialog {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}

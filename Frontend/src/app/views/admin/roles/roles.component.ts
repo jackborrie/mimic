@@ -1,14 +1,27 @@
 import {Component, ContentChild, ContentChildren, OnDestroy, OnInit, QueryList, ViewChild} from '@angular/core';
-import {RoleService}                                                                       from '../../../services/role.service';
-import {BehaviorSubject, Observable, Subject, Subscription, throttleTime} from 'rxjs';
+import {
+    RoleService
+}                                                                                          from '../../../services/role.service';
+import {BehaviorSubject, Observable, Subject, Subscription, throttleTime}                  from 'rxjs';
 import {
     PaginationChanged
-}                                                                         from '../../../components/table/table.component';
-import {AuthService}                                                      from '../../../services/auth.service';
-import {Router}                                                           from '@angular/router';
-import {MimicTemplate} from '../../../directives/mimic-template.directive';
-import {DialogService} from '../../../services/dialog.service';
-import {MimicDialog} from '../../../directives/m-dialog.directive';
+}                                                                                          from '../../../components/table/table.component';
+import {
+    AuthService
+}                                                                                          from '../../../services/auth.service';
+import {Router}                                                                            from '@angular/router';
+import {
+    MimicTemplate
+}                                                                                          from '../../../directives/mimic-template.directive';
+import {
+    DialogService
+}                                                                                          from '../../../services/dialog.service';
+import {
+    MimicDialog
+}                                                                                          from '../../../directives/m-dialog.directive';
+import {
+    RequestService
+}                                                                                          from '../../../services/request.service';
 
 @Component({
                selector   : 'app-roles',
@@ -25,8 +38,10 @@ export class RolesComponent implements OnInit, OnDestroy {
 
     protected newRoleName = '';
 
-    protected adminRead: boolean = false;
+    protected adminRead: boolean  = false;
     protected adminWrite: boolean = false;
+
+    protected loading: boolean = false;
 
     private _sortDirection: string = 'desc';
     private _pageSize: number      = 10;
@@ -49,15 +64,15 @@ export class RolesComponent implements OnInit, OnDestroy {
 
         if (this._authService.hasStatus()) {
             this.adminWrite = this._authService.hasWrite('admin');
-            this.adminRead = this.adminWrite || this._authService.hasRead('admin');
+            this.adminRead  = this.adminWrite || this._authService.hasRead('admin');
         } else {
-            this.adminRead = this._authService.wasAdmin();
+            this.adminRead = this._authService.hadRead('admin');
         }
 
         let authStatusSub = this._authService.$onStatusChanged
                                 .subscribe(() => {
                                     this.adminWrite = this._authService.hasWrite('admin');
-                                    this.adminRead = this.adminWrite || this._authService.hasRead('admin');
+                                    this.adminRead  = this.adminWrite || this._authService.hasRead('admin');
 
                                     if (!this.adminRead) {
                                         this._router.navigate(['']);
@@ -75,10 +90,12 @@ export class RolesComponent implements OnInit, OnDestroy {
     }
 
     protected fetchRoles () {
+        this.loading = true;
         const roleSub = this._role.getAllRoles(this.searchTerm, this._sortDirection, this._page, this._pageSize)
                             .subscribe(r => {
                                 this.roles      = r.data;
                                 this.totalPages = r.totalPages;
+                                this.loading = false;
                             });
 
         this._subscriptions.add(roleSub);
@@ -90,6 +107,10 @@ export class RolesComponent implements OnInit, OnDestroy {
     }
 
     public handleSearchTermChange () {
+        if (this._keyPressTimeout != null) {
+            clearTimeout(this._keyPressTimeout);
+        }
+
         this._keyPressTimeout = setTimeout(() => {
             this.search();
         }, 1000);
@@ -104,7 +125,17 @@ export class RolesComponent implements OnInit, OnDestroy {
     }
 
     public onRoleCreate () {
-        console.log(this.newRoleName)
+        if (this.newRoleName == null || this.newRoleName == '') {
+            return;
+        }
+
+        this._role.createRole(this.newRoleName)
+            .subscribe(result => {
+                this._dialog.closeDialog();
+                this.fetchRoles();
+            }, error => {
+                console.error(error);
+            });
     }
 
 }

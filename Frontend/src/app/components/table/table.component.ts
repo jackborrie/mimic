@@ -33,6 +33,9 @@ export class TableComponent implements AfterContentInit {
     @Input()
     showPagination: boolean = false;
 
+    @Input()
+    loading: boolean = false;
+
     @Output()
     paginationChanged: EventEmitter<PaginationChanged> = new EventEmitter<PaginationChanged>();
 

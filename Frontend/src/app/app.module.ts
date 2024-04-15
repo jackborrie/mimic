@@ -6,7 +6,6 @@ import {AppComponent}            from './app.component';
 import {AuthComponent}           from './views/auth/auth.component';
 import {HttpClientModule}        from '@angular/common/http';
 import {DashboardComponent}      from './views/dashboard/dashboard.component';
-import {UserDropdownComponent}   from './components/user-dropdown/user-dropdown.component';
 import {InputComponent}          from './components/input/input.component';
 import {FormsModule}             from '@angular/forms';
 import {SidebarItemComponent}    from './components/sidebar-item/sidebar-item.component';
@@ -19,33 +18,36 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableComponent}          from './components/table/table.component';
 import {MimicTemplate}           from './directives/mimic-template.directive';
 import {MimicDialog}             from './directives/m-dialog.directive';
+import {AppearanceComponent}     from './views/settings/appearance/appearance.component';
+import {DropdownComponent}       from './components/dropdown/dropdown.component';
 
 @NgModule({
-              declarations: [
-                  AppComponent,
-                  AuthComponent,
-                  DashboardComponent,
-                  UserDropdownComponent,
-                  InputComponent,
-                  SidebarItemComponent,
-                  SidebarComponent,
-                  SettingsComponent,
-                  AdminComponent,
-                  UsersComponent,
-                  RolesComponent,
-                  TableComponent,
-                  MimicTemplate,
-                  MimicDialog
-              ],
-              imports     : [
-                  BrowserModule,
-                  BrowserAnimationsModule,
-                  AppRoutingModule,
-                  HttpClientModule,
-                  FormsModule
-              ],
-              providers   : [],
-              bootstrap   : [AppComponent]
-          })
+    declarations: [
+        AppComponent,
+        AuthComponent,
+        DashboardComponent,
+        InputComponent,
+        SidebarItemComponent,
+        SidebarComponent,
+        SettingsComponent,
+        AdminComponent,
+        UsersComponent,
+        RolesComponent,
+        TableComponent,
+        MimicTemplate,
+        MimicDialog,
+        AppearanceComponent,
+        DropdownComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
+})
 export class AppModule {
 }

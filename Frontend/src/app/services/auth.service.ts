@@ -1,9 +1,9 @@
-import {Injectable}                                           from '@angular/core';
-import {map, Observable, Observer, of, Subject, Subscription} from 'rxjs';
-import {HttpClient, HttpHeaders}                              from '@angular/common/http';
-import {DateTime}                                             from 'luxon';
-import {Router} from '@angular/router';
-import {Status} from '../models/status';
+import {Injectable}                   from '@angular/core';
+import {map, Observable, of, Subject} from 'rxjs';
+import {HttpClient, HttpHeaders}      from '@angular/common/http';
+import {DateTime}                     from 'luxon';
+import {Router}                       from '@angular/router';
+import {Status}                       from '../models/status';
 
 export interface LoginInterface {
     email: string,
@@ -24,8 +24,19 @@ export class AuthService {
     private _accessToken: string | null  = null;
     private _refreshToken: string | null = null;
     private _expiresIn: number | null    = null;
-    private _expireDate: DateTime | null        = null;
-    private _status: Status | null              = null;
+    private _expireDate: DateTime | null = null;
+    private _status: Status | null       = null;
+
+    private get previousStatus (): Status | null {
+        let statusString = localStorage.getItem('status');
+
+        if (statusString == null || statusString === '') {
+            return null;
+        }
+
+        return JSON.parse(statusString);
+
+    }
 
     public refreshing: boolean = false;
 
@@ -125,7 +136,6 @@ export class AuthService {
         this._refreshToken = null;
         this._expiresIn    = null;
         this._expireDate   = null;
-
         return this._http.post('http://localhost:5153/logout', null, {headers: headers}).pipe(map(() => {
             this.$onLoggedInChanged.next(false);
 
@@ -133,18 +143,32 @@ export class AuthService {
         }));
     }
 
-    public wasAdmin (): boolean {
+    public hadWrite (role: string): boolean {
+        return this.hadRole(role + ':write');
+    }
+
+    public hadRead (role: string): boolean {
+        return this.hadWrite(role) || this.hadRole(role + ':read');
+    }
+
+    private hadRole (role: string) {
         if (this._status !== null) {
             return false;
         }
 
-        let wasAdminString = localStorage.getItem('wasAdmin');
+        let previousStatus = this.previousStatus;
 
-        if (wasAdminString == null || wasAdminString == '') {
+        if (previousStatus == null) {
             return false;
         }
 
-        return wasAdminString == 'true';
+        for (let r of previousStatus.user.roles) {
+            if (r === role) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public hasStatus (): boolean {
@@ -173,28 +197,40 @@ export class AuthService {
 
             this.$onStatusChanged.next(status);
 
-            if (this.hasRead('admin')) {
-                localStorage.setItem('wasAdmin', 'true');
-            } else {
-                localStorage.removeItem('wasAdmin');
-            }
+            localStorage.setItem('status', JSON.stringify(status));
         });
     }
 
     public hasWrite (role: string): boolean {
-        if (this._status == null || this._status.user == null || this._status.user.roles == null) {
+        if (this._status == null) {
             return false;
         }
 
-        return this._status.user.roles.find(r => r === role + ':write') != null;
+        for (let r of this._status.user.roles) {
+            if (r === role + ':write') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public hasRead (role: string): boolean {
-        if (this._status == null || this._status.user == null || this._status.user.roles == null) {
+        if (this.hasWrite(role)) {
+            return true;
+        }
+
+        if (this._status == null) {
             return false;
         }
 
-        return this.hasWrite(role) || this._status.user.roles.find(r => r === role + ':read') != null;
+        for (let r of this._status.user.roles) {
+            if (r === role + ":read") {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

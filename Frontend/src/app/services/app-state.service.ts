@@ -30,10 +30,8 @@ export class AppStateService {
         },
     ]
 
-    private _isSidebarOut = false;
     private _theme: ThemeInterface = this.themes[0];
 
-    public $isSidebarExpandedChanged: Subject<boolean> = new BehaviorSubject<boolean>(false);
     public $onThemeChanged: Subject<ThemeInterface> = new BehaviorSubject(this._theme);
 
     constructor () {
@@ -53,12 +51,6 @@ export class AppStateService {
             this._theme = theme;
             this.$onThemeChanged.next(this._theme);
         }
-    }
-
-    public toggleSidebar () {
-        this._isSidebarOut = !this._isSidebarOut;
-
-        this.$isSidebarExpandedChanged.next(this._isSidebarOut);
     }
 
     public setTheme (theme: string) {

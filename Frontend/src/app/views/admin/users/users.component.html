@@ -5,7 +5,7 @@
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
     </div>
-    <m-table [columns]="['username', 'email', 'actions']" [rows]="products">
+    <m-table [columns]="['username', 'email', 'actions']" [rows]="users" [loading]="isLoading" [showPagination]="true" [totalPages]="totalPages">
         <ng-template mTemplate="usernameHeader">
             <th>
                 Username
@@ -29,7 +29,8 @@
         </ng-template>
         <ng-template mTemplate="actions" let-data>
             <button class="icon-button">
-                <i class="fa-solid fa-gear"></i>
+                <i class="fa-solid fa-pencil" *ngIf="adminWrite"></i>
+                <i class="fa-solid fa-page" *ngIf="adminRead"></i>
             </button>
         </ng-template>
     </m-table>

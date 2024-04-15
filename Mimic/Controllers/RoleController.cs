@@ -103,7 +103,7 @@ namespace Mimic.Controllers
             var nRole = _context.Roles.Add(role);
             _context.SaveChanges();
             
-            return StatusCode((int)HttpStatusCode.OK, nRole.ToString());
+            return StatusCode((int)HttpStatusCode.OK);
         }
     }
 }

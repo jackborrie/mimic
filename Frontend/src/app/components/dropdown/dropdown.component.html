@@ -1,0 +1,11 @@
+<div class="dropdown-container" [ngClass]="{down: down}">
+    <button class="button dropdown" (click)="toggleDropdown()">
+        {{selectedItem ? selectedItem.text : ''}}
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="dropdown-area">
+        <button class="button dropdown-item" *ngFor="let item of items" (click)="selectedItem = item">
+            {{item.text}}
+        </button>
+    </div>
+</div>

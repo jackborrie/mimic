@@ -52,7 +52,6 @@ export class InputComponent {
     }
 
     protected handleLabelClick () {
-        console.log('test')
         this.input.nativeElement.focus();
     }
 }
