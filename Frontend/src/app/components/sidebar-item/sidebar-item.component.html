@@ -1,16 +1,10 @@
 <ng-container *ngIf="display">
     <ng-container *ngIf="type === 'link'">
-        <a class="button sidebar-item" [routerLink]="route">
-            <div class="icon">
-                <i class="fa-solid {{icon}}"></i>
-            </div>
+        <a [routerLink]="route" mButton icon="{{icon}}" [iconOnly]="true">
         </a>
     </ng-container>
     <ng-container *ngIf="type === 'button'">
-        <button (click)="handleButtonClick()" class="button sidebar-item">
-            <div class="icon">
-                <i class="fa-solid {{icon}}"></i>
-            </div>
+        <button (click)="handleButtonClick()" mButton icon="{{icon}}" [iconOnly]="true">
         </button>
     </ng-container>
     <ng-container *ngIf="type === 'info'">

@@ -1,8 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AppStateService}              from '../../services/app-state.service';
-import {Subscription}                 from 'rxjs';
-import {SidebarItem}                  from '../sidebar-item/sidebar-item.component';
-import {AuthService} from "../../services/auth.service";
+import {Subscription}                    from 'rxjs';
+import {AppStateService, ThemeInterface} from "../../services/app-state.service";
 
 @Component({
                selector   : 'app-sidebar',
@@ -13,20 +11,35 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     private _subscription: Subscription = new Subscription();
 
+    private currentThemeIndex: number = 0;
+    private themes: ThemeInterface[] = [];
+
     public constructor (
-        private _state: AppStateService,
-        private _authService: AuthService
+        private _state: AppStateService
     ) {
     }
 
+    handleThemeClick () {
+        this.currentThemeIndex++;
+        if (this.currentThemeIndex >= this.themes.length) {
+            this.currentThemeIndex = 0;
+        }
+
+        this._state.setTheme(this.themes[this.currentThemeIndex].class);
+    }
 
     ngOnInit (): void {
-    }
-    ngOnDestroy (): void {
-        this._subscription.unsubscribe();
+        this.themes = this._state.getThemes();
+
+        let themeSub = this._state.$onThemeChanged
+            .subscribe((theme) => {
+                this.currentThemeIndex = this.themes.findIndex(t => t == theme);
+            });
+
+        this._subscription.add(themeSub);
     }
 
-    protected logout () {
-        this._authService.logout().subscribe();
+    ngOnDestroy (): void {
+        this._subscription.unsubscribe();
     }
 }

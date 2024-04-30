@@ -1,0 +1,13 @@
+<div class="book">
+    <div class="image">
+<!-- TODO Replace this with a dynamic link (probably going to forget it until I serve this app live so hi future me lol) -->
+        <img src="http://localhost:5153/api/books/{{book.id}}/cover" alt="{{book.title}} cover">
+    </div>
+    <div class="description">
+        <div class="title">
+            {{book.title}}
+        </div>
+        <button mButton icon="fa-ellipsis-vertical" [iconOnly]="true" class="description-button">
+        </button>
+    </div>
+</div>

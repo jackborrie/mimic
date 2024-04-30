@@ -16,10 +16,10 @@ export interface PaginationChanged {
 }
 
 @Component({
-               selector   : 'm-table[rows][columns]',
-               templateUrl: './table.component.html',
-               styleUrl   : './table.component.scss'
-           })
+    selector: 'm-table[rows][columns]',
+    templateUrl: './table.component.html',
+    styleUrl: './table.component.scss'
+})
 export class TableComponent implements AfterContentInit {
 
     @ContentChildren(MimicTemplate) templates!: QueryList<MimicTemplate>;
@@ -41,19 +41,19 @@ export class TableComponent implements AfterContentInit {
 
 
     @Input()
-    totalPages: number  = 1;
+    totalPages: number = 1;
 
     @Input()
     protected allowedPageSizes: number[] = [10];
 
     protected currentPage: number = 0;
-    protected currentPageSize: number    = 10;
+    protected currentPageSize: number = 10;
     protected showPageSizeDropdown: boolean = false;
 
-    ngAfterContentInit (): void {
+    ngAfterContentInit(): void {
     }
 
-    protected getTemplate (columnName: string): TemplateRef<any> | null {
+    protected getTemplate(columnName: string): TemplateRef<any> | null {
         let template = null;
         (this.templates as QueryList<MimicTemplate>).forEach(item => {
             if (item.getType() === columnName) {
@@ -65,21 +65,21 @@ export class TableComponent implements AfterContentInit {
         return template;
     }
 
-    protected getHeaderTemplate (columnName: string): TemplateRef<any> | null {
+    protected getHeaderTemplate(columnName: string): TemplateRef<any> | null {
         return this.getTemplate(columnName + 'Header');
     }
 
-    protected togglePageSizeDropdown () {
+    protected togglePageSizeDropdown() {
         this.showPageSizeDropdown = !this.showPageSizeDropdown;
     }
 
 
-    protected setPage (index: number) {
+    protected setPage(index: number) {
         this.currentPage = index;
         this._notifyPaginationListeners();
     }
 
-    protected setPageSize (size: number) {
+    protected setPageSize(size: number) {
         this.showPageSizeDropdown = false;
         if (this.currentPageSize == size) {
             return;
@@ -88,7 +88,7 @@ export class TableComponent implements AfterContentInit {
         this._notifyPaginationListeners();
     }
 
-    private _notifyPaginationListeners () {
+    private _notifyPaginationListeners() {
         this.paginationChanged.next({page: this.currentPage, pageSize: this.currentPageSize});
     }
 

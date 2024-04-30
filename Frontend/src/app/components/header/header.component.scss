@@ -1,0 +1,21 @@
+:host {
+    flex-grow: 1;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 64px;
+    background: var(--background-1);
+
+    padding-right: 1rem;
+
+    border-bottom: var(--border);
+}
+
+.header-actions {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+}

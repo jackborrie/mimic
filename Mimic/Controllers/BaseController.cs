@@ -2,24 +2,22 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Mimic.Models;
-using Mimic.Models.Identities;
 
 namespace Mimic.Controllers;
 
 public class BaseController : ControllerBase
 {
 
-    protected UserManager<User> userManager;
-    protected RoleManager<UserRole> roleManager;
+    // protected UserManager<User> userManager;
+    // protected RoleManager<UserRole> roleManager;
 
-    public BaseController(UserManager<User> userManager, RoleManager<UserRole> roleManager)
-    {
-        this.userManager = userManager;
-        this.roleManager = roleManager;
-
-        // LoadRoles();
-    }
+    // public BaseController(UserManager<User> userManager, RoleManager<UserRole> roleManager)
+    // {
+    //     this.userManager = userManager;
+    //     this.roleManager = roleManager;
+    //
+    //     // LoadRoles();
+    // }
     
     [NonAction]
     protected bool HasReadRole(string role)

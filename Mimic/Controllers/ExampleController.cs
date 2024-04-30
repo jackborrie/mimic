@@ -1,6 +1,5 @@
 using System.Collections;
 using Microsoft.AspNetCore.Mvc;
-using Mimic.Models;
 
 namespace Mimic.Controllers
 {
@@ -9,12 +8,12 @@ namespace Mimic.Controllers
     public class ExampleController : ControllerBase
     {
 
-        private readonly ILogger<UserController> _logger;
+        // private readonly ILogger<UserController> _logger;
 
-        public ExampleController(ILogger<UserController> logger)
-        {
-            _logger = logger;
-        }
+        // public ExampleController(ILogger<UserController> logger)
+        // {
+        //     _logger = logger;
+        // }
 
         // [HttpGet(Name = "all")]
         // public IEnumerable<User> GetAll()

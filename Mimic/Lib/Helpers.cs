@@ -1,59 +1,32 @@
-using System.Globalization;
-using System.Security.Claims;
-using Mimic.Models;
+using System.Reflection;
+using Mimic.Attributes;
 
 namespace Mimic.Lib;
 
-public static class Extensions
+public static class Helpers
 {
-    public static IEnumerable<string> GetRoles(this ClaimsPrincipal @this)
+    public static string GetColumn(this PropertyInfo pi)
     {
-        return ((ClaimsIdentity)@this.Identity).Claims
-            .Where(c => c.Type == ClaimTypes.Role)
-            .Select(c => c.Value);
-    }
-
-    public static object GetReflectedPropertyValue(this object subject, string property)
-    {
-        return subject.GetType().GetProperty(property).GetValue(subject, null);
-    }
-
-    public static List<T> Paginate<T>(this IOrderedQueryable<T> list, int? skip, int? take)
-    {
-        IQueryable<T> result = list;
-        if (skip.HasValue) result = result.Skip(skip.Value);
-        if (skip.HasValue && take.HasValue) result = result.Take(take.Value);
-        return result.ToList();
-    }
-
-    public static IOrderedQueryable<T> Sort<T>(this IQueryable<T> list, string sortBy, string? sortDirection)
-    {
-        IOrderedQueryable<T> output;
-        if (!string.IsNullOrEmpty(sortDirection))
+        Attribute[] attrs = System.Attribute.GetCustomAttributes(pi);
+        
+        foreach (Attribute attr in attrs)
         {
-            if (string.IsNullOrEmpty(sortDirection) || sortDirection == "desc" || sortDirection != "asc")
+            if (attr is ColumnName c)
             {
-                output = list.OrderByDescending(item => item.GetReflectedPropertyValue(sortBy.fromSnakeToPascal()));
-            }
-            else
-            {
-                output = list.OrderBy(item => item.GetReflectedPropertyValue(sortBy.fromSnakeToPascal()));
+                return c.GetColumn();
             }
         }
-        else
-        {
-            output = list.OrderByDescending(item => item.GetReflectedPropertyValue(sortBy.fromSnakeToPascal()));
-        }
-
-        return output;
+        
+        return "";
     }
 
-    public static string fromSnakeToPascal(this string input)
+    public static string CleanUpFileNames(string fileName)
     {
-        var newString = input.ToLower().Replace("_", " ");
-        TextInfo info = CultureInfo.CurrentCulture.TextInfo;
-        newString = info.ToTitleCase(newString).Replace(" ", string.Empty);
-        return newString;
+        fileName = fileName.Replace(",", string.Empty);
+        fileName = fileName.Replace(" ", "_");
+        fileName = fileName.Replace("-", string.Empty);
+        fileName = fileName.ToLower();
+
+        return fileName;
     }
 }
-

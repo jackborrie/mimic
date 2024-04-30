@@ -1,7 +1,10 @@
-.button, .icon-button {
+.mimic-button, .mimic-icon-button {
     display: flex;
+    flex-direction: row;
+    column-gap: 0.5rem;
     align-items: center;
     justify-content: center;
+    padding: 0.5rem;
 
     background: var(--background-1);
     border-radius: var(--border-radius);
@@ -21,8 +24,8 @@
 
     &[disabled] {
         cursor: default;
-        background: var(--foreground-0);
-        color: var(--background-0);
+        background: transparent;
+        color: var(--background-4);
         border: var(--border-inverse);
     }
 }
@@ -31,16 +34,11 @@
     column-gap: 0.5rem;
 }
 
-.icon-button {
-    height: 30px;
-    width: 30px;
+.mimic-icon-button {
+    height: 38px;
+    width: 38px;
 }
 
-.button {
+.mimic-button {
     padding: 0 1rem;
-}
-
-.button:disabled {
-    background: var(--background-2);
-    cursor: default;
 }

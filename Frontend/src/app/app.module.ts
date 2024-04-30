@@ -1,43 +1,33 @@
-import {NgModule}      from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {BrowserModule}                    from '@angular/platform-browser';
 
 import {AppRoutingModule}        from './app-routing.module';
 import {AppComponent}            from './app.component';
-import {AuthComponent}           from './views/auth/auth.component';
 import {HttpClientModule}        from '@angular/common/http';
 import {DashboardComponent}      from './views/dashboard/dashboard.component';
-import {InputComponent}          from './components/input/input.component';
 import {FormsModule}             from '@angular/forms';
 import {SidebarItemComponent}    from './components/sidebar-item/sidebar-item.component';
 import {SidebarComponent}        from './components/sidebar/sidebar.component';
-import {SettingsComponent}       from './views/settings/settings.component';
-import {AdminComponent}          from './views/admin/admin.component';
-import {UsersComponent}          from './views/admin/users/users.component';
-import {RolesComponent}          from './views/admin/roles/roles.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableComponent}          from './components/table/table.component';
 import {MimicTemplate}           from './directives/mimic-template.directive';
-import {MimicDialog}             from './directives/m-dialog.directive';
-import {AppearanceComponent}     from './views/settings/appearance/appearance.component';
-import {DropdownComponent}       from './components/dropdown/dropdown.component';
+import {HeaderComponent}         from './components/header/header.component';
+import {BookComponent}           from './components/book/book.component';
+import {BookRowComponent} from './components/book-row/book-row.component';
+import {MimicButton}      from "./directives/mimic-button.directive";
 
 @NgModule({
     declarations: [
         AppComponent,
-        AuthComponent,
         DashboardComponent,
-        InputComponent,
         SidebarItemComponent,
         SidebarComponent,
-        SettingsComponent,
-        AdminComponent,
-        UsersComponent,
-        RolesComponent,
         TableComponent,
         MimicTemplate,
-        MimicDialog,
-        AppearanceComponent,
-        DropdownComponent
+        MimicButton,
+        HeaderComponent,
+        BookComponent,
+        BookRowComponent
     ],
     imports: [
         BrowserModule,

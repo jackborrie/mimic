@@ -7,16 +7,25 @@
     background: var(--background-0);
 }
 
-.header {
+.header-section {
     display: flex;
     flex-direction: row;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    height: 60px;
-    background: var(--background-1);
 
-    padding-right: 1rem;
+    height: 64px;
+    width: 64px;
+    font-size: 1.5rem;
 
+    border-right: var(--border);
     border-bottom: var(--border);
+    background: var(--background-1);
+    border-radius: var(--border-radius);
 }
 
 .body {
@@ -27,6 +36,7 @@
 
 .sidebar {
     height: 100%;
+    width: 64px;
     background: var(--background-1);
     transition: width 0.5s ease-in-out;
     border-right: var(--border);
@@ -38,9 +48,13 @@
 
 .content {
     display: flex;
-    padding: 1rem;
+    //padding: 1rem;
     flex-grow: 1;
     background: var(--background-0);
+}
+
+.content-wrapper {
+    overflow-y:auto;
 }
 
 .dialog {
