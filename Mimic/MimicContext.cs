@@ -13,12 +13,26 @@ public class MimicContext: DbContext
 
     public MimicContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "metadata.db");
+        // var folder = Environment.SpecialFolder.LocalApplicationData;
+        // var path = Environment.GetFolderPath(folder);
+        var path = Directory.GetCurrentDirectory();
+        DbPath = Path.Join(path, "mimic.db");
     }
     
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Book>()
+            .HasMany(e => e.Authors)
+            .WithMany(e => e.Books)
+            .UsingEntity<BookAuthor>(
+                l => l.HasOne<Author>().WithMany().HasForeignKey(e => e.AuthorId),
+                r => r.HasOne<Book>().WithMany().HasForeignKey(e => e.BookId)
+                );
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+    {
+        options.UseSqlite($"Data Source={DbPath}");
+    }
     
 }

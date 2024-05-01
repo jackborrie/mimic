@@ -69,123 +69,87 @@ namespace Mimic.Controllers
             var bookPath = Path.Combine(Directory.GetCurrentDirectory(), book.Path);
             var coverPath = Path.Combine(bookPath, "cover.jpg");
 
-            Byte[] b = System.IO.File.ReadAllBytes(coverPath);   // You can use your own method over here.         
+            var b = System.IO.File.ReadAllBytes(coverPath);        
             return File(b, "image/jpeg");
         }
 
         [HttpPost("upload")]
         public IActionResult UploadFile(IFormFile file)
         {
-            var uploadResult = UploadHandler.UploadTemp(file);
-            if (uploadResult != "success")
-            {
-                return BadRequest(uploadResult);
-            }
-            
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "Uploads\\temp");
-            var tempBookPath = Path.Combine(path, file.FileName);
-            
-            var book = EpubReader.ReadBook(tempBookPath);
-
-            if (book == null)
-            {
-                return BadRequest();
-            }
-            
-            var newBook = new Book
-            {
-                Title = book.Title,
-                Authors = book.AuthorList,
-                HasCover = book.CoverImage != null
-            };
-
-            var newFilePath = newBook.Authors[0];
-
-            if (string.IsNullOrEmpty(newFilePath))
-            {
-                newFilePath = "unknown";
-            }
-
-            foreach (var c in Path.GetInvalidFileNameChars()) 
-            { 
-                newFilePath = newFilePath.Replace(c, '-'); 
-            }
-
-            var cleanTitle = newBook.Title;
-
-            foreach (var c in Path.GetInvalidFileNameChars()) 
-            { 
-                cleanTitle = cleanTitle.Replace(c, '-'); 
-            }
-
-            newFilePath = Path.Combine(newFilePath, cleanTitle);
-            newFilePath = Path.Combine("Uploads", newFilePath);
-
-            newFilePath = Helpers.CleanUpFileNames(newFilePath);
-            
-            newBook.Path = newFilePath;
-            
-            if (oldBook != null)
-            {
-                return Conflict($"Book with name [{oldBook.Title}] already exists by this author.");
-            }
-            
-            var result = DataClass.Insert(newBook);
-
-            if (result == 0)
+            var tempEbookPath = UploadHandler.UploadTemp(file);
+            if (tempEbookPath == null)
             {
                 return BadRequest();
             }
 
-            foreach (var author in newBook.Authors)
+            var tempEbook = EpubReader.ReadBook(tempEbookPath);
+
+            var authors = new List<Author>();
+            
+            foreach (var author in tempEbook.AuthorList)
             {
-                var newAuthor = new Author
+                var a = _context.Authors.Include(au => au.Books).FirstOrDefault(au => au.Name == author);
+
+                if (a == null)
                 {
-                    Name = author
-                };
+                    var newAuthor = new Author
+                    {
+                        Name = author
+                    };
+                    
+                    authors.Add(newAuthor);
+                    
+                    continue;
+                }
+                
+                authors.Add(a);
 
-                var res = DataClass.Insert(newAuthor);
-
-                if (res == 0)
+                if (a.Books.Count <= 0)
                 {
                     continue;
                 }
                 
-                DataClass.ExecuteNonQuery($"INSERT INTO book_authors (book_id, author_id) VALUES ('{newBook.Id}', '{newAuthor.Id}');");
+                var oldBook = a.Books.FirstOrDefault(b => b.Title == tempEbook.Title);
+
+                if (oldBook != null)
+                {
+                    return Conflict($"Existing book [{oldBook.Title}] already exists from author [{a.Name}]");
+                }
             }
 
-            var bookDirectory = Path.Combine(Directory.GetCurrentDirectory(), newFilePath);
-            
-            try
+            var newBook = new Book
             {
-                Directory.CreateDirectory(bookDirectory);
-            }
-            catch (Exception e)
+                Title = tempEbook.Title,
+                HasCover = tempEbook.CoverImage != null
+            };
+
+            foreach (var author in authors)
             {
-                return Problem(e.Message);
-            }
-            
-            if (book.CoverImage != null)
-            {
-                newBook.HasCover = book.CoverImage != null;
-                using var stream = new FileStream(Path.Combine(bookDirectory, "cover.jpg"), FileMode.Create);
-                
-                stream.Write(book.CoverImage);
-                
+                newBook.Authors.Add(author);
             }
 
-            var newBookPath = Path.Combine(bookDirectory, file.FileName);
-            
-            try
+            var newBookPath = UploadHandler.MoveBook(newBook, tempEbookPath);
+
+            if (newBookPath == null)
             {
-                System.IO.File.Move(tempBookPath, newBookPath);
+                return Problem();
             }
-            catch (Exception e)
+
+            if (newBook.HasCover)
             {
-                return Problem(e.Message);
+                var imageSaveResult = UploadHandler.SaveCover(newBookPath, tempEbook.CoverImage!);
+
+                if (!imageSaveResult)
+                {
+                    return Problem();
+                }
             }
-            
-            return Ok(result);
+
+            newBook.Path = newBookPath;
+
+            _context.Books.Add(newBook);
+            _context.SaveChanges();
+            return Ok(newBook);
         }
     }
 }

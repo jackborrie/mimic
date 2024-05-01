@@ -1,23 +1,22 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Mimic.Attributes;
 
 namespace Mimic.Models;
 
+[Table("authors")]
 public class Author : Model
 {
     [JsonPropertyName("name")]
+    [Column("name")]
     public string Name { get; set; } = string.Empty;
     
     [JsonPropertyName("link")]
+    [Column("link")]
     public string Link { get; set; } = string.Empty;
-
-    [JsonPropertyName("created_at")]
-        public DateTime? CreatedAt { get; set; } = null;
-
-    [JsonPropertyName("update_at")]
-        public DateTime? UpdatedAt { get; set; } = null;
-
-    public List<Book> Books { get; set; } = new List<Book>();
+        
+    [JsonIgnore]
+    public List<Book> Books { get; } = [];
     
     public override void AdditionalParse()
     {

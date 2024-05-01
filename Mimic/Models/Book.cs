@@ -4,35 +4,36 @@ using Mimic.Attributes;
 
 namespace Mimic.Models;
 
+[Table("books")]
 public class Book : Model
 {
 
+    [Column("title")]
     [JsonPropertyName("title")]
-    public string? Title { get; set; } = null;
+    public string Title { get; set; }
 
     [JsonPropertyName("publication_date")]
+    [Column("publication_date")]
     public DateTime? PublicationDate { get; set; } = null;
     
-    [JsonPropertyName("authors")]
-    public List<string> Authors { get; set; } = new List<string>();
-    
     [JsonPropertyName("isbn")]
+    [Column("isbn")]
     public string? Isbn { get; set; }
     
     [JsonPropertyName("lccn")]
+    [Column("lccn")]
     public string? Lccn { get; set; }
     
     [JsonPropertyName("has_cover")]
+    [Column("has_cover")]
     public bool HasCover { get; set; }
     
     [JsonPropertyName("path")]
+    [Column("path")]
     public string? Path { get; set; }
 
-    [JsonPropertyName("created_at")]
-    public DateTime? CreatedAt { get; set; } = null;
-
-    [JsonPropertyName("update_at")]
-    public DateTime? UpdatedAt { get; set; } = null;
+    [JsonIgnore]
+    public List<Author> Authors { get; } = [];
 
     public override void AdditionalParse()
     {
