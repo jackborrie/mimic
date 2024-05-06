@@ -4,11 +4,8 @@
             {{ rowTitle }}
         </div>
         <div class="actions pull-right">
-            <button mButton icon="fa-chevron-left" [iconOnly]="true" [disabled]="currentIndex === 0" (click)="setCurrentStep(currentIndex - 1)">
-            </button>
-            <button mButton icon="fa-chevron-right" [iconOnly]="true" [disabled]="currentIndex === this.maxStep" (click)="setCurrentStep(currentIndex + 1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+            <button mButton icon="fa-chevron-left" buttonType="icon" [disabled]="currentIndex === 0" (click)="setCurrentStep(currentIndex - 1)"></button>
+            <button mButton icon="fa-chevron-right" buttonType="icon" [disabled]="currentIndex === this.maxStep" (click)="setCurrentStep(currentIndex + 1)"></button>
         </div>
     </div>
     <div class="book-container" (mousedown)="handleMouseDown($event)">

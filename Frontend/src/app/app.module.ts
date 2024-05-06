@@ -18,6 +18,9 @@ import {MimicButton}      from "./directives/mimic-button.directive";
 import { BookDetailsComponent } from './views/books/book-details/book-details.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TagComponent } from './components/tag/tag.component';
+import { BooksComponent } from './views/books/books.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { DragNDropDirective } from './directives/drag-n-drop.directive';
 
 @NgModule({
     declarations: [
@@ -33,7 +36,10 @@ import { TagComponent } from './components/tag/tag.component';
         BookRowComponent,
         BookDetailsComponent,
         SpinnerComponent,
-        TagComponent
+        TagComponent,
+        BooksComponent,
+        DropdownComponent,
+        DragNDropDirective
     ],
     imports: [
         BrowserModule,

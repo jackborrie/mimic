@@ -12,7 +12,7 @@ import {Book} from "../../../models/book";
 export class BookDetailsComponent implements OnInit, OnDestroy{
 
     private _bookId!: string;
-    protected book?: Book;
+    protected book: Book | null = null;
 
     private _subscriptions: Subscription = new Subscription();
 
@@ -45,7 +45,9 @@ export class BookDetailsComponent implements OnInit, OnDestroy{
                 error => {
                     this._noBookFound();
                     return;
-                })
+                });
+
+        this._subscriptions.add(bookFetchSub);
 
     }
 

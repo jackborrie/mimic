@@ -45,10 +45,10 @@
     text-overflow: ellipsis;
 }
 
-.description-button {
+:host ::ng-deep .description-button {
     border: none;
     border-left: var(--border);
     height: 30px;
-    min-width: 30px;
+    width: 30px;
     border-radius: 0 0 var(--border-radius) 0;
 }

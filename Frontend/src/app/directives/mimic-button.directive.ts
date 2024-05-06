@@ -10,13 +10,16 @@ export class MimicButton implements OnInit {
     icon?: string;
 
     @Input()
-    iconOnly: boolean = false;
+    buttonType: 'normal' | 'icon' = 'normal';
 
     @Input()
     iconPos: 'left' | 'right' = 'right';
 
     @Input()
     color: 'primary' | 'accent' = 'primary';
+
+    @Input()
+    text: string | null = null;
 
     constructor(
         private el: ElementRef,
@@ -26,7 +29,7 @@ export class MimicButton implements OnInit {
     }
 
     ngOnInit () {
-        if (this.iconOnly) {
+        if (this.buttonType == 'icon') {
             this.el.nativeElement.classList.add('mimic-icon-button');
         } else {
             this.el.nativeElement.classList.add('mimic-button');
@@ -34,14 +37,19 @@ export class MimicButton implements OnInit {
 
         this.el.nativeElement.classList.add(this.color);
 
+        if (this.text != null) {
+            const textElement = this.renderer.createText(this.text);
+            this.renderer.appendChild(this.el.nativeElement, textElement);
+        }
+
         if (this.icon != null && this.icon !== '') {
             const iconElement = this.document.createElement('i');
 
             iconElement.classList.add('fa-solid');
             iconElement.classList.add(this.icon);
 
-            if (this.iconOnly) {
-                this._clearChildren();
+            if (this.buttonType == 'icon') {
+                // this._clearChildren();
 
                 this.renderer.appendChild(this.el.nativeElement, iconElement);
                 return;

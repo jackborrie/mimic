@@ -1,10 +1,10 @@
 <ng-container *ngIf="display">
     <ng-container *ngIf="type === 'link'">
-        <a [routerLink]="route" mButton icon="{{icon}}" [iconOnly]="true">
+        <a [routerLink]="route" mButton icon="{{icon}}" buttonType="icon">
         </a>
     </ng-container>
     <ng-container *ngIf="type === 'button'">
-        <button (click)="handleButtonClick()" mButton icon="{{icon}}" [iconOnly]="true">
+        <button (click)="handleButtonClick()" mButton icon="{{icon}}" buttonType="icon">
         </button>
     </ng-container>
     <ng-container *ngIf="type === 'info'">

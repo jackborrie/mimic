@@ -28,7 +28,8 @@
     flex-direction: row;
     column-gap: 1rem;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .book-wrapper {

@@ -1,0 +1,28 @@
+<div class="dashboard">
+    <div class="search-header">
+        <div class="left">
+
+        </div>
+        <div class="pull-right">
+            <m-dropdown buttonType="icon" icon="fa-plus">
+                <div class="add-new-container" drag-n-drop (fileDropped)="handleFileDropped($event)" [hidden]="uploading">
+                    <input type="file" #fileDrop id="fileDrop" multiple (change)="handleFileUpload($event)" accept=".epub">
+
+<!--                    <i class="fas fa-upload"></i>-->
+                    <span>Drag and drop ebooks here</span>
+                    <span>or</span>
+                    <label class="browse-file" for="fileDrop">Browse for files</label>
+                </div>
+
+                <div class="uploading-container" *ngIf="uploading">
+                    <m-spinner></m-spinner>
+                </div>
+            </m-dropdown>
+        </div>
+    </div>
+
+    <div class="books">
+        <app-book-row *ngIf="books != null" [books]="books.data" rowTitle="Books">
+        </app-book-row>
+    </div>
+</div>

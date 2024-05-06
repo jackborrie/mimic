@@ -20,4 +20,10 @@ export class BookService {
     public getBookById (bookId: string, headers: HttpHeaders | null = null) {
         return this._request.get<Book>('api/books/' + bookId, Book, headers);
     }
+
+    public uploadBook (file: File) {
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+        return this._request.post('api/books/upload', formData);
+    }
 }

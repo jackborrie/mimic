@@ -9,7 +9,5 @@ export class Book extends Model {
 
     public override serialise(json: { [p: string]: any }) {
         super.serialise(json);
-
-        console.log(json)
     }
 }
