@@ -28,6 +28,14 @@ public class MimicContext: DbContext
                 l => l.HasOne<Author>().WithMany().HasForeignKey(e => e.AuthorId),
                 r => r.HasOne<Book>().WithMany().HasForeignKey(e => e.BookId)
                 );
+        
+        modelBuilder.Entity<Book>()
+            .HasMany(e => e.Tags)
+            .WithMany(e => e.Books)
+            .UsingEntity<BookTag>(
+                l => l.HasOne<Tag>().WithMany().HasForeignKey(e => e.TagId),
+                r => r.HasOne<Book>().WithMany().HasForeignKey(e => e.BookId)
+            );
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)

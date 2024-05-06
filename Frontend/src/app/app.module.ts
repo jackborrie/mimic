@@ -15,6 +15,9 @@ import {HeaderComponent}         from './components/header/header.component';
 import {BookComponent}           from './components/book/book.component';
 import {BookRowComponent} from './components/book-row/book-row.component';
 import {MimicButton}      from "./directives/mimic-button.directive";
+import { BookDetailsComponent } from './views/books/book-details/book-details.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TagComponent } from './components/tag/tag.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +30,10 @@ import {MimicButton}      from "./directives/mimic-button.directive";
         MimicButton,
         HeaderComponent,
         BookComponent,
-        BookRowComponent
+        BookRowComponent,
+        BookDetailsComponent,
+        SpinnerComponent,
+        TagComponent
     ],
     imports: [
         BrowserModule,

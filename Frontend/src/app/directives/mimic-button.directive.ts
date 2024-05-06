@@ -15,6 +15,9 @@ export class MimicButton implements OnInit {
     @Input()
     iconPos: 'left' | 'right' = 'right';
 
+    @Input()
+    color: 'primary' | 'accent' = 'primary';
+
     constructor(
         private el: ElementRef,
         private renderer: Renderer2,
@@ -28,6 +31,8 @@ export class MimicButton implements OnInit {
         } else {
             this.el.nativeElement.classList.add('mimic-button');
         }
+
+        this.el.nativeElement.classList.add(this.color);
 
         if (this.icon != null && this.icon !== '') {
             const iconElement = this.document.createElement('i');

@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using Mimic.Attributes;
 
 namespace Mimic.Models;
 
@@ -17,9 +16,4 @@ public class Author : Model
         
     [JsonIgnore]
     public List<Book> Books { get; } = [];
-    
-    public override void AdditionalParse()
-    {
-        
-    }
 }

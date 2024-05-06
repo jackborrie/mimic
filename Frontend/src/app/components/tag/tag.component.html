@@ -1,0 +1,5 @@
+<div class="tag" [style]="{'--tag-color': color}">
+    <i *ngIf="icon != null && iconPos == 'left'" class="fas {{icon}}"></i>
+    {{text}}
+    <i *ngIf="icon != null && iconPos == 'right'" class="fas {{icon}}"></i>
+</div>

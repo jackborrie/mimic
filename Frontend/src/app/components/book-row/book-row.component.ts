@@ -27,7 +27,7 @@ export class BookRowComponent implements AfterViewInit {
     public books: Book[] = [];
 
     @Input()
-    public title: string = '';
+    public rowTitle: string = '';
 
     public constructor(
         private _renderer: Renderer2

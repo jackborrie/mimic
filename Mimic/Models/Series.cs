@@ -1,9 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using Mimic.Attributes;
 
 namespace Mimic.Models;
 
-[TableName("series")]
+[Table("series")]
 public class Series : Model
 {
 
@@ -15,8 +15,4 @@ public class Series : Model
 
     [JsonPropertyName("update_at")]
         public DateTime? UpdatedAt { get; set; } = null;
-
-    public override void AdditionalParse()
-    {
-    }
 }

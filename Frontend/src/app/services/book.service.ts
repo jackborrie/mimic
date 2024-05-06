@@ -16,4 +16,8 @@ export class BookService {
     public getAllBooks (headers: HttpHeaders | null = null) {
         return this._request.getAll<Book>('api/books', Book, headers);
     }
+
+    public getBookById (bookId: string, headers: HttpHeaders | null = null) {
+        return this._request.get<Book>('api/books/' + bookId, Book, headers);
+    }
 }

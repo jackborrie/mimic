@@ -1,14 +1,11 @@
-export class Model {
+export abstract class Model {
 
     // Jesse's letter: qaassszdfxdfgbvcvb
 
-    serialise (json: {[key: string]: any}) {
+    public serialise (json: {[key: string]: any}) {
         let keys = Object.keys(json);
 
         for (let key of keys) {
-            if (key === 'userName') {
-                key = 'username';
-            }
             // @ts-ignore
             this[key] = json[key];
         }

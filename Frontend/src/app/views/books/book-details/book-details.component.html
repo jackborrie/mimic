@@ -1,0 +1,19 @@
+<div class="book-details" *ngIf="book != null">
+    <div class="information-row">
+        <img src="http://localhost:5153/api/books/{{book.id}}/cover" alt="{{book.title}} cover">
+        <div class="book-information">
+            <div class="top-row">
+                <div class="tags">
+                    <ng-container *ngFor="let tag of book.tags">
+                        <m-tag [text]="tag.text" [icon]="tag.icon" [iconPos]="tag.iconPos" [color]="tag.color"></m-tag>
+                    </ng-container>
+                </div>
+                <button class="pull-right" mButton color="accent" icon="fa-download">Download</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="book-details loading" *ngIf="book == null">
+    <m-spinner></m-spinner>
+</div>

@@ -41,7 +41,7 @@ namespace Mimic.Controllers
                 return BadRequest();
             }
 
-            var book = _context.Books.FirstOrDefault(book => book.Id == id);
+            var book = _context.Books.Include(b => b.Tags).FirstOrDefault(book => book.Id == id);
 
             if (book == null)
             {

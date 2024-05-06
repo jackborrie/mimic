@@ -1,7 +1,7 @@
 <div class="book-row">
     <div class="row-header">
-        <div class="title">
-            {{title}}
+        <div class="row-title">
+            {{ rowTitle }}
         </div>
         <div class="actions pull-right">
             <button mButton icon="fa-chevron-left" [iconOnly]="true" [disabled]="currentIndex === 0" (click)="setCurrentStep(currentIndex - 1)">

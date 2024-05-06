@@ -17,7 +17,7 @@ export class RequestService {
         private _httpClient: HttpClient) {
     }
 
-    public get<T extends Model>(route: string, model: ModelConstructor<T>, headers?: HttpHeaders): Observable<T> {
+    public get<T extends Model>(route: string, model: ModelConstructor<T>, headers: HttpHeaders | null): Observable<T> {
         if (headers == null) {
             headers = new HttpHeaders();
         }
