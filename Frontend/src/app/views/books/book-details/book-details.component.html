@@ -8,7 +8,13 @@
                         <m-tag [text]="tag.text" [icon]="tag.icon" [iconPos]="tag.iconPos" [color]="tag.color"></m-tag>
                     </ng-container>
                 </div>
-                <button class="pull-right" mButton color="accent" icon="fa-download" text="Download"></button>
+                <div class="book-actions pull-right">
+                    <button mButton color="accent" icon="fa-download" buttonType="icon" (click)="downloadBook()"></button>
+                    <m-dropdown icon="fa-ellipsis" buttonType="icon">
+                        <button mDropdownButton text="Add Tag" icon="fa-tags"></button>
+                        <button mDropdownButton color="warn" text="Delete" icon="fa-trash"></button>
+                    </m-dropdown>
+                </div>
             </div>
         </div>
     </div>

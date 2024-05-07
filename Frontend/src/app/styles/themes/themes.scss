@@ -1,3 +1,14 @@
+.accent {
+    background: var(--violet);
+    color: var(--background-0);
+    border-color: var(--violet);
+}
+
+.warn {
+    color: var(--red);
+    border-color: var(--red);
+}
+
 @import "./catppuccin-mocha";
 @import "./catppuccin-latte";
 @import "./solarized-dark";

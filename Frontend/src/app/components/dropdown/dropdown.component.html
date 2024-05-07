@@ -1,9 +1,9 @@
 
 <div class="dropdown" [ngClass]="{down: showDropdown}">
-    <button #dropdown class="add-new-button {{classes}}" mButton [text]="text" [iconPos]="iconPos" [buttonType]="buttonType" [icon]="icon ? icon : ''" (click)="toggle($event)">
+    <button #dropdown class="toggle-button {{classes}} {{position}}" mButton [text]="text" [iconPos]="iconPos" [buttonType]="buttonType" [icon]="icon ? icon : ''" (click)="toggle($event)">
     </button>
-    <div class="add-new-dropdown" *ngIf="showDropdown">
+    <div class="dropdown-wrapper {{position}}" [hidden]="!showDropdown">
         <ng-content></ng-content>
     </div>
-    <div class="line-fix" *ngIf="showDropdown"></div>
+    <div class="line-fix {{position}}" [hidden]="!showDropdown"></div>
 </div>

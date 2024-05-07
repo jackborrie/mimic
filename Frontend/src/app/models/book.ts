@@ -1,5 +1,6 @@
 import {Model} from "./model";
 import {Tag} from "./tag";
+import {simplifyFileName} from "../lib/helpers";
 
 export class Book extends Model {
     public id: number | null = null;
@@ -9,5 +10,9 @@ export class Book extends Model {
 
     public override serialise(json: { [p: string]: any }) {
         super.serialise(json);
+    }
+
+    public getFileName (): string {
+        return simplifyFileName(this.title!) + '.epub';
     }
 }

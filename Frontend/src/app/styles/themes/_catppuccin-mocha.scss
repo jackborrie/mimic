@@ -27,7 +27,11 @@
 
     &.main-container {
         padding: 1rem;
-        row-gap: 1rem;
+        grid-gap: 1rem;
+
+        & > .content {
+            padding: 0;
+        }
     }
 
     .header {
@@ -35,30 +39,20 @@
         border: var(--border);
     }
 
-    .header-section {
-        column-gap: 1rem;
+    .sidebar {
+        row-gap: 1rem;
+    }
+
+    .sidebar-wrapper {
+        border: var(--border);
+        border-radius: var(--border-radius);
+    }
+
+    .content {
+        padding: 0;
     }
 
     .logo {
         border: var(--border);
-    }
-
-    .body {
-        column-gap: 1rem;
-
-        & > .sidebar {
-            border: var(--border);
-            border-radius: var(--border-radius);
-        }
-
-        & > .content {
-            padding: 0;
-        }
-    }
-
-    .accent {
-        background: var(--violet);
-        color: var(--background-0);
-        border-color: var(--violet);
     }
 }

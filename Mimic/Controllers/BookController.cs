@@ -151,5 +151,30 @@ namespace Mimic.Controllers
             _context.SaveChanges();
             return Ok(newBook);
         }
+
+        [HttpGet("{id}/download")]
+        public async Task<IActionResult> DownloadEbook(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+
+            var book = await _context.Books.FirstOrDefaultAsync(book => book.Id == id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var bookFilePath = UploadHandler.GetBookFilePath(book);
+
+            if (bookFilePath == null)
+            {
+                return Problem();
+            }
+            
+            return File(await System.IO.File.ReadAllBytesAsync(bookFilePath), "image/png", Path.GetFileName(bookFilePath));
+        }
     }
 }

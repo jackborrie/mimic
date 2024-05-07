@@ -11,14 +11,14 @@
     --foreground-3: #7c7f93;
     --foreground-4: #8c8fa1;
 
-    --red:       #d20f39;
-    --yellow:    #df8e1d;
-    --orange:    #fe640b;
-    --magenta:   #dd7878;
-    --violet:    #7287fd;
-    --blue:      #04a5e5;
-    --cyan:      #179299;
-    --green:     #40a02b;
+    --red: #d20f39;
+    --yellow: #df8e1d;
+    --orange: #fe640b;
+    --magenta: #dd7878;
+    --violet: #7287fd;
+    --blue: #04a5e5;
+    --cyan: #179299;
+    --green: #40a02b;
 
     --border-radius: 1rem;
     --border: 1px solid var(--foreground-0);
@@ -26,7 +26,11 @@
 
     &.main-container {
         padding: 1rem;
-        row-gap: 1rem;
+        grid-gap: 1rem;
+
+        & > .content {
+            padding: 0;
+        }
     }
 
     .header {
@@ -34,29 +38,26 @@
         border: var(--border);
     }
 
-    .header-section {
-        column-gap: 1rem;
+    .sidebar {
+        row-gap: 1rem;
+    }
+
+    .sidebar-wrapper {
+        border: var(--border);
+        border-radius: var(--border-radius);
+    }
+
+    .content {
+        padding: 0;
     }
 
     .logo {
         border: var(--border);
     }
 
-    .body {
-        column-gap: 1rem;
-
-        & > .sidebar {
-            border: var(--border);
-            border-radius: var(--border-radius);
-        }
-
-        & > .content {
-            padding: 0;
-        }
-    }
-
     .accent {
-        color: var(--cyan);
-        border-color: var(--cyan);
+        color: var(--background-0);
+        border-color: var(--violet);
+        background: var(--violet)
     }
 }

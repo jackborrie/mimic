@@ -21,6 +21,7 @@ import { TagComponent } from './components/tag/tag.component';
 import { BooksComponent } from './views/books/books.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { DragNDropDirective } from './directives/drag-n-drop.directive';
+import { MimicDropdownButtonDirective } from './directives/mimic-dropdown-button.directive';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { DragNDropDirective } from './directives/drag-n-drop.directive';
         TagComponent,
         BooksComponent,
         DropdownComponent,
-        DragNDropDirective
+        DragNDropDirective,
+        MimicDropdownButtonDirective
     ],
     imports: [
         BrowserModule,

@@ -1,15 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import {BookService} from "../../../services/book.service";
-import { Subscription } from 'rxjs/internal/Subscription';
-import {Book} from "../../../models/book";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router}       from '@angular/router';
+import {BookService}                  from "../../../services/book.service";
+import {Subscription}                 from 'rxjs/internal/Subscription';
+import {Book}                         from "../../../models/book";
+import {RequestService}               from "../../../services/request.service";
+import {saveAs}                       from 'file-saver';
 
 @Component({
-  selector: 'app-book-details',
-  templateUrl: './book-details.component.html',
-  styleUrl: './book-details.component.scss'
+    selector: 'app-book-details',
+    templateUrl: './book-details.component.html',
+    styleUrl: './book-details.component.scss'
 })
-export class BookDetailsComponent implements OnInit, OnDestroy{
+export class BookDetailsComponent implements OnInit, OnDestroy {
 
     private _bookId!: string;
     protected book: Book | null = null;
@@ -19,11 +21,12 @@ export class BookDetailsComponent implements OnInit, OnDestroy{
     public constructor(
         private _route: ActivatedRoute,
         private _router: Router,
-        private _books: BookService
+        private _books: BookService,
+        private _request: RequestService
     ) {
     }
 
-    public ngOnInit () {
+    public ngOnInit() {
         const bookId = this._route.snapshot.paramMap.get('id');
         if (bookId == null || bookId === '') {
             this._noBookFound();
@@ -51,11 +54,26 @@ export class BookDetailsComponent implements OnInit, OnDestroy{
 
     }
 
-    public ngOnDestroy () {
+    public ngOnDestroy() {
         this._subscriptions.unsubscribe();
     }
 
-    private _noBookFound () {
+    protected downloadBook() {
+        if (this.book == null) {
+            return;
+        }
+
+        this._request.download(`api/books/${this._bookId}/download`)
+            .subscribe(data => {
+                saveAs(data, this.book?.getFileName());
+            })
+    }
+
+    protected deleteBook () {
+
+    }
+
+    private _noBookFound() {
         this._router.navigate(['']);
         // TODO add a toast that says the book with the id is invalid.
     }

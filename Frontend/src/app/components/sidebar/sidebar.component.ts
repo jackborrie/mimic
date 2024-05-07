@@ -11,21 +11,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     private _subscription: Subscription = new Subscription();
 
-    private currentThemeIndex: number = 0;
-    private themes: ThemeInterface[] = [];
+    protected themes: ThemeInterface[] = [];
+
+    protected currentTheme!: ThemeInterface;
 
     public constructor (
         private _state: AppStateService
     ) {
     }
 
-    handleThemeClick () {
-        this.currentThemeIndex++;
-        if (this.currentThemeIndex >= this.themes.length) {
-            this.currentThemeIndex = 0;
-        }
-
-        this._state.setTheme(this.themes[this.currentThemeIndex].class);
+    changeTheme (theme: string) {
+        this._state.setTheme(theme);
     }
 
     ngOnInit (): void {
@@ -33,10 +29,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
         let themeSub = this._state.$onThemeChanged
             .subscribe((theme) => {
-                this.currentThemeIndex = this.themes.findIndex(t => t == theme);
+                this.currentTheme = theme;
             });
 
         this._subscription.add(themeSub);
+    }
+
+    getColor (theme: ThemeInterface): 'primary' | 'accent' | 'warn' {
+        console.log(theme.class, this.currentTheme.class, theme.class == this.currentTheme.class)
+        console.log(this.currentTheme.class == theme.class ? 'accent' : 'primary')
+        // return this.currentTheme.class == theme.class ? 'accent' : 'primary';
+        return 'primary';
     }
 
     ngOnDestroy (): void {

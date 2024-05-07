@@ -24,6 +24,9 @@ export class DropdownComponent implements OnInit, OnDestroy {
     public buttonType: 'normal' | 'icon' = 'normal';
 
     @Input()
+    public position: 'down-left' | 'right-up' = 'down-left';
+
+    @Input()
     public classes: string | null = null;
 
     protected showDropdown: boolean = false;

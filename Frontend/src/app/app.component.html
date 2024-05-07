@@ -1,20 +1,23 @@
 <div class="main-container {{theme?.class}}">
-    <div class="header-section">
+
+
+<!--    <div class="header-section">-->
+<!--        <div class="logo">-->
+<!--            <i class="fas fa-home"></i>-->
+<!--        </div>-->
+<!--        <app-header>-->
+<!--        </app-header>-->
+<!--    </div>-->
+
+    <div class="sidebar">
         <div class="logo">
             <i class="fas fa-home"></i>
         </div>
-        <app-header>
-        </app-header>
-    </div>
-
-    <div class="body">
-        <div class="sidebar">
+        <div class="sidebar-wrapper">
             <app-sidebar></app-sidebar>
         </div>
-        <div #content class="content">
-            <div #contentWrapper class="content-wrapper">
-                <router-outlet *ngIf="!resizing"></router-outlet>
-            </div>
-        </div>
+    </div>
+    <div class="content">
+        <router-outlet></router-outlet>
     </div>
 </div>

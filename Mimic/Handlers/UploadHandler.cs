@@ -94,6 +94,19 @@ public class UploadHandler
         return bookDir;
     }
 
+    public static string? GetBookFilePath(Book book)
+    {
+        if (book.Path == null)
+        {
+            return null;
+        }
+        
+        var output = Path.Combine(Directory.GetCurrentDirectory(), book.Path,
+            CreateSafeDirectory(book.Title) + ".epub");
+
+        return output;
+    }
+
     private static string CreateSafeDirectory(string directory)
     {
         foreach (var invalidChar in Path.GetInvalidFileNameChars())

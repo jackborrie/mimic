@@ -16,23 +16,26 @@ export class MimicButton implements OnInit {
     iconPos: 'left' | 'right' = 'right';
 
     @Input()
-    color: 'primary' | 'accent' = 'primary';
+    color: 'primary' | 'accent' | 'warn' = 'primary';
 
     @Input()
     text: string | null = null;
 
+    protected buttonClass = 'mimic-button';
+    protected iconButtonClass = 'mimic-icon-button';
+
     constructor(
-        private el: ElementRef,
-        private renderer: Renderer2,
-        @Inject(DOCUMENT) private document: Document
+        protected el: ElementRef,
+        protected renderer: Renderer2,
+        @Inject(DOCUMENT) protected document: Document
     ) {
     }
 
     ngOnInit () {
         if (this.buttonType == 'icon') {
-            this.el.nativeElement.classList.add('mimic-icon-button');
+            this.el.nativeElement.classList.add(this.iconButtonClass);
         } else {
-            this.el.nativeElement.classList.add('mimic-button');
+            this.el.nativeElement.classList.add(this.buttonClass);
         }
 
         this.el.nativeElement.classList.add(this.color);

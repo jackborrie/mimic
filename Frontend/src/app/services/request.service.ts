@@ -80,4 +80,8 @@ export class RequestService {
 
         return this._httpClient.delete(this._baseUrl + '/' + route, {headers: headers});
     }
+
+    public download (route: string) {
+        return this._httpClient.get(this._baseUrl + '/' + route, { responseType: 'blob' });
+    }
 }
