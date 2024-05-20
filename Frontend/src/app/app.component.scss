@@ -40,8 +40,25 @@
     background: var(--background-1);
 }
 
+.sidebar-toggle {
+    display: none;
+    z-index: 3;
+    position: absolute;
+    height: 38px;
+}
+
 .content {
     overflow-y: auto;
     padding: 1rem;
     background: var(--background-0);
+}
+
+.toast-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
 }

@@ -176,5 +176,39 @@ namespace Mimic.Controllers
             
             return File(await System.IO.File.ReadAllBytesAsync(bookFilePath), "image/png", Path.GetFileName(bookFilePath));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBook(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+            
+            var book = await _context.Books.FirstOrDefaultAsync(book => book.Id == id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+            if (!Directory.Exists(book.Path))
+            {
+                return Problem();
+            }
+
+            try
+            {
+                Directory.Delete(book.Path, true);
+            }
+            catch (IOException e)
+            {
+                return Problem(e.Message);
+            }
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+
+            return Ok(book);
+        }
     }
 }

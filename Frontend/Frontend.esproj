@@ -8,7 +8,6 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\Frontend\</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\app\guards\" />
     <Folder Include="src\app\styles\components\dialog\" />
     <Folder Include="src\app\styles\themes\" />
     <Folder Include="src\assets\css\" />

@@ -5,6 +5,7 @@ import {Subscription}                 from 'rxjs/internal/Subscription';
 import {Book}                         from "../../../models/book";
 import {RequestService}               from "../../../services/request.service";
 import {saveAs}                       from 'file-saver';
+import {Toast, ToastService}                 from "../../../services/toast.service";
 
 @Component({
     selector: 'app-book-details',
@@ -15,6 +16,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
 
     private _bookId!: string;
     protected book: Book | null = null;
+    protected deletionConfirmation: boolean = false;
 
     private _subscriptions: Subscription = new Subscription();
 
@@ -22,7 +24,8 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
         private _route: ActivatedRoute,
         private _router: Router,
         private _books: BookService,
-        private _request: RequestService
+        private _request: RequestService,
+        private _toast: ToastService
     ) {
     }
 
@@ -70,7 +73,25 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
     }
 
     protected deleteBook () {
+        if (!this.deletionConfirmation) {
+            this.deletionConfirmation = true;
+            return;
+        }
 
+        // TODO add an "Are you sure"
+        this._books.deleteBook(this._bookId)
+            .subscribe(result => {
+                this.deletionConfirmation = false;
+                this._toast.showToast(new Toast(`Book [${this.book?.title}] has been deleted`, 'success'));
+                this._router.navigate(['/']);
+            }, error => {
+                this.deletionConfirmation = false;
+                this._toast.showToast(new Toast(`Book [${this.book?.title}] failed to delete`, 'error'));
+            });
+    }
+
+    protected handleDropdownClosed () {
+        this.deletionConfirmation = false;
     }
 
     private _noBookFound() {

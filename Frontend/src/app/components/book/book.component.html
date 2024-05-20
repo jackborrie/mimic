@@ -1,5 +1,5 @@
 <div class="book">
-    <div class="image" (dblclick)="bookDoubleClick()">
+    <div class="image" (click)="bookDoubleClick()">
 <!-- TODO Replace this with a dynamic link (probably going to forget it until I serve this app live so hi future me lol) -->
         <img src="http://localhost:5153/api/books/{{book.id}}/cover" alt="{{book.title}} cover">
     </div>
@@ -7,7 +7,7 @@
         <div class="title" [title]="book.title">
             {{book.title}}
         </div>
-        <m-dropdown icon="fa-ellipsis-vertical" buttonType="icon" classes="description-button">
+        <m-dropdown icon="fa-ellipsis-vertical" classes="description-button">
             test
         </m-dropdown>
     </div>

@@ -1,14 +1,4 @@
-<div class="main-container {{theme?.class}}">
-
-
-<!--    <div class="header-section">-->
-<!--        <div class="logo">-->
-<!--            <i class="fas fa-home"></i>-->
-<!--        </div>-->
-<!--        <app-header>-->
-<!--        </app-header>-->
-<!--    </div>-->
-
+<div class="{{isMobile ? 'mobile' : ''}} main-container {{theme?.class}}">
     <div class="sidebar">
         <div class="logo">
             <i class="fas fa-home"></i>
@@ -20,4 +10,12 @@
     <div class="content">
         <router-outlet></router-outlet>
     </div>
+    <div class="toast-container">
+        <ng-container  *ngIf="toasts.length > 0">
+            <div class="toast {{toast.level}}"  *ngFor="let toast of toasts" (click)="clearToast(toast)">
+                {{toast.title}}
+            </div>
+        </ng-container>
+    </div>
 </div>
+

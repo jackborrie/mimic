@@ -1,5 +1,7 @@
-import {Injectable}               from '@angular/core';
+import {HostListener, Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
+import ResizeEvent = JQuery.ResizeEvent;
+import isMobile                   from "is-mobile";
 
 export interface ThemeInterface {
     name: string,
@@ -32,7 +34,10 @@ export class AppStateService {
 
     private _theme: ThemeInterface = this.themes[0];
 
+    private _isMobile: boolean = false;
+
     public $onThemeChanged: Subject<ThemeInterface> = new BehaviorSubject(this._theme);
+    public $onIsMobileChanged: Subject<boolean> = new BehaviorSubject(this._isMobile);
 
     constructor () {
         let localTheme = localStorage.getItem('theme');
@@ -68,5 +73,10 @@ export class AppStateService {
 
     public getThemes (): ThemeInterface[] {
         return this.themes;
+    }
+
+    public checkIfMobile () {
+        this._isMobile = isMobile({tablet: true});
+        this.$onIsMobileChanged.next(this._isMobile);
     }
 }

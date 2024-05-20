@@ -11,18 +11,6 @@ public class Book : Model
     [JsonPropertyName("title")]
     public string Title { get; set; }
 
-    [JsonPropertyName("publication_date")]
-    [Column("publication_date")]
-    public DateTime? PublicationDate { get; set; } = null;
-    
-    [JsonPropertyName("isbn")]
-    [Column("isbn")]
-    public string? Isbn { get; set; }
-    
-    [JsonPropertyName("lccn")]
-    [Column("lccn")]
-    public string? Lccn { get; set; }
-    
     [JsonPropertyName("has_cover")]
     [Column("has_cover")]
     public bool HasCover { get; set; }
@@ -30,6 +18,20 @@ public class Book : Model
     [JsonPropertyName("path")]
     [Column("path")]
     public string? Path { get; set; }
+    
+    [JsonPropertyName("description")]
+    [Column("description")]
+    public string? Description { get; set; }
+    
+    [JsonPropertyName("series_id")]
+    [Column("series_id")]
+    public string? SeriesId { get; set; }
+    
+    [JsonPropertyName("series_index")]
+    [Column("series_index")]
+    public int? SeriesIndex { get; set; }
+
+    public Series Series { get; set; } = null;
 
     public List<Author> Authors { get; } = [];
 

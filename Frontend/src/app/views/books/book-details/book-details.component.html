@@ -9,10 +9,12 @@
                     </ng-container>
                 </div>
                 <div class="book-actions pull-right">
-                    <button mButton color="accent" icon="fa-download" buttonType="icon" (click)="downloadBook()"></button>
-                    <m-dropdown icon="fa-ellipsis" buttonType="icon">
+                    <button mButton color="accent" icon="fa-download" (click)="downloadBook()"></button>
+                    <m-dropdown icon="fa-ellipsis" buttonType="icon" (closed)="handleDropdownClosed()">
                         <button mDropdownButton text="Add Tag" icon="fa-tags"></button>
-                        <button mDropdownButton color="warn" text="Delete" icon="fa-trash"></button>
+                        <button mDropdownButton buttonType="normal" color="warn" icon="fa-trash" (click)="deleteBook()">
+                            {{deletionConfirmation ? 'Are you sure?' : 'Delete'}}
+                        </button>
                     </m-dropdown>
                 </div>
             </div>

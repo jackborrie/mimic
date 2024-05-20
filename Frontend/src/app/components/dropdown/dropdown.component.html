@@ -1,6 +1,6 @@
 
-<div class="dropdown" [ngClass]="{down: showDropdown}">
-    <button #dropdown class="toggle-button {{classes}} {{position}}" mButton [text]="text" [iconPos]="iconPos" [buttonType]="buttonType" [icon]="icon ? icon : ''" (click)="toggle($event)">
+<div #dropdown class="dropdown" [ngClass]="{down: showDropdown}">
+    <button class="toggle-button {{classes}} {{position}}" mButton [text]="text" [iconPos]="iconPos" [buttonType]="buttonType" [icon]="icon ? icon : ''" (click)="toggle($event)">
     </button>
     <div class="dropdown-wrapper {{position}}" [hidden]="!showDropdown">
         <ng-content></ng-content>

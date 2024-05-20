@@ -23,6 +23,7 @@
 
     .dropdown-wrapper {
         display: flex;
+        z-index: 2;
 
         &.right-up {
             border-radius: var(--border-radius);
@@ -84,6 +85,13 @@
         width: 1px;
         height: 36px;
     }
+
+    &.right-down {
+        left: 37px;
+        top: 1px;
+        width: 1px;
+        height: 36px;
+    }
 }
 
 .dropdown-wrapper {
@@ -112,6 +120,11 @@
 
     &.right-up {
         bottom: 0;
+        left: 37px;
+    }
+
+    &.right-down {
+        top: 0;
         left: 37px;
     }
 }

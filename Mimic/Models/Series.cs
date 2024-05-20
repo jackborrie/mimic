@@ -6,13 +6,8 @@ namespace Mimic.Models;
 [Table("series")]
 public class Series : Model
 {
+    [JsonPropertyName("name")] 
+    public string Name { get; set; } = string.Empty;
 
-    [JsonPropertyName("name")]
-        public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("created_at")]
-        public DateTime? CreatedAt { get; set; } = null;
-
-    [JsonPropertyName("update_at")]
-        public DateTime? UpdatedAt { get; set; } = null;
+    [JsonPropertyName("books")] public Book[] Books { get; set; } = [];
 }

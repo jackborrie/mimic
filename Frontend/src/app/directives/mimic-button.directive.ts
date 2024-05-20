@@ -10,7 +10,7 @@ export class MimicButton implements OnInit {
     icon?: string;
 
     @Input()
-    buttonType: 'normal' | 'icon' = 'normal';
+    buttonType: 'normal' | 'icon' | null = null;
 
     @Input()
     iconPos: 'left' | 'right' = 'right';
@@ -32,6 +32,13 @@ export class MimicButton implements OnInit {
     }
 
     ngOnInit () {
+        if (this.icon != null && this.icon != ''
+            && (this.text == null || this.text == '') && this.buttonType == null) {
+            this.buttonType = 'icon';
+        } else if (this.text != null && this.text == '' && this.buttonType == null) {
+            this.buttonType = 'normal';
+        }
+
         if (this.buttonType == 'icon') {
             this.el.nativeElement.classList.add(this.iconButtonClass);
         } else {

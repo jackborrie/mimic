@@ -1,5 +1,6 @@
-import {Component, Input, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
-import {fromEvent, Observable, Subscription}                        from "rxjs";
+import {Component, Input, OnInit, OnDestroy, ViewChild, ElementRef, EventEmitter, Output, HostListener} from '@angular/core';
+import {fromEvent, Observable, Subscription}                                                            from "rxjs";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'm-dropdown',
@@ -21,27 +22,32 @@ export class DropdownComponent implements OnInit, OnDestroy {
     public iconPos: 'left' | 'right' = 'right';
 
     @Input()
-    public buttonType: 'normal' | 'icon' = 'normal';
+    public buttonType: 'normal' | 'icon' | null = null;
 
     @Input()
-    public position: 'down-left' | 'right-up' = 'down-left';
+    public position: 'down-left' | 'right-up' | 'right-down' = 'down-left';
 
     @Input()
     public classes: string | null = null;
+
+    @Output()
+    public closed: EventEmitter<null> = new EventEmitter<null>()
 
     protected showDropdown: boolean = false;
 
     private _subscription: Subscription = new Subscription();
 
     ngOnInit() {
-        let windowClickEvent = fromEvent(window, 'click')
-            .subscribe ((data) => {
-                if (!this.dropdown.nativeElement.contains(data.target)) {
-                    this.showDropdown = false;
-                }
-            })
+    }
 
-        this._subscription.add(windowClickEvent);
+    @HostListener('window:click', ['$event.target'])
+    public onClick(target: EventTarget) {
+        if (this.dropdown.nativeElement.contains(target)) {
+            return;
+        }
+
+        this.showDropdown = false;
+        this.closed.emit();
     }
 
     ngOnDestroy() {
@@ -50,8 +56,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
 
     toggle (event: MouseEvent) {
         event.preventDefault();
-        event.stopPropagation();
         this.showDropdown = !this.showDropdown;
-        console.log(this.showDropdown)
     }
 }

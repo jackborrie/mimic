@@ -1,10 +1,21 @@
 <div class="sidebar">
     <div class="top">
-        <app-sidebar-item type="link" label="Book" icon="fa-book" route="books"></app-sidebar-item>
+        <m-dropdown icon="fa-plus" position="right-down">
+            <div class="add-new-container" drag-n-drop (fileDropped)="handleFileDropped($event)" *ngIf="!uploading">
+                <input type="file" #fileDrop id="fileDrop" multiple (change)="handleFileUpload($event)" accept=".epub">
+                <span>Drag and drop ebooks here</span>
+                <span>or</span>
+                <label class="browse-file" for="fileDrop">Browse for files</label>
+            </div>
+
+            <div class="uploading-container" *ngIf="uploading">
+                <m-spinner></m-spinner>
+            </div>
+        </m-dropdown>
+        <app-sidebar-item type="link" label="Book" icon="fa-book" route="book"></app-sidebar-item>
     </div>
     <div class="bottom">
-        {{currentTheme.name}}
-        <m-dropdown buttonType="icon" icon="fa-sun" position="right-up">
+        <m-dropdown icon="fa-sun" position="right-up">
             <button *ngFor="let theme of themes" mButton [color]="getColor(theme)" [text]="theme.name" (click)="changeTheme(theme.class)"></button>
         </m-dropdown>
     </div>

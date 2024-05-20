@@ -14,10 +14,14 @@ public class MimicContext: DbContext
     public MimicContext()
     {
         // var folder = Environment.SpecialFolder.LocalApplicationData;
-        // var path = Environment.GetFolderPath(folder);
-        var path = Directory.GetCurrentDirectory();
-        DbPath = Path.Join(path, "mimic.db");
+        // // var path = Environment.GetFolderPath(folder);
+        // var path = Directory.GetCurrentDirectory();
+        // DbPath = Path.Join(path, "mimic.db");
+        //
     }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=mimic;Username=mimic_owner;Password=mimic_owner");
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,11 +40,10 @@ public class MimicContext: DbContext
                 l => l.HasOne<Tag>().WithMany().HasForeignKey(e => e.TagId),
                 r => r.HasOne<Book>().WithMany().HasForeignKey(e => e.BookId)
             );
-    }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        options.UseSqlite($"Data Source={DbPath}");
+        modelBuilder.Entity<Series>()
+            .HasMany(s => s.Books)
+            .WithOne(b => b.Series)
+            .HasForeignKey(b => b.SeriesId);
     }
-    
 }

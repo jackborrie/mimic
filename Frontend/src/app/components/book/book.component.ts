@@ -20,9 +20,4 @@ export class BookComponent {
     protected bookDoubleClick () {
         this._router.navigate(['/book/' + this.book.id])
     }
-
-    protected options (event: MouseEvent) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
 }

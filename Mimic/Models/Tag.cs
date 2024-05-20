@@ -22,14 +22,6 @@ public class Tag : Model
     [Column("icon_pos")]
     public string IconPos { get; set; } = string.Empty;
 
-    [JsonPropertyName("created_at")] 
-    [Column("created_at")]
-    public DateTime? CreatedAt { get; set; } = null;
-
-    [JsonPropertyName("updated_at")] 
-    [Column("updated_at")]
-    public DateTime? UpdatedAt { get; set; } = null;
-
     [JsonIgnore]
     public List<Book> Books { get; } = [];
 }
