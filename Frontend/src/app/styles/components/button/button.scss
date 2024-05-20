@@ -12,6 +12,7 @@
     border: var(--border);
     color: var(--foreground-0);
     height: 30px;
+    min-height: 30px;
     text-decoration: none;
     font-family: JetbrainsMono, serif;
 
@@ -37,6 +38,7 @@
 
 .mimic-icon-button, .mimic-dropdown-icon-button {
     height: 38px;
+    min-width: 38px;
     width: 38px;
 }
 

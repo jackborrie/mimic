@@ -1,5 +1,8 @@
 export abstract class Model {
 
+    public createdAt: string | null = null;
+    public updatedAt: string | null = null;
+
     // Jesse's letter: qaassszdfxdfgbvcvb
 
     public serialise (json: {[key: string]: any}) {

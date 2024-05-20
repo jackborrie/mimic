@@ -1,0 +1,16 @@
+<div class="panel">
+    <div class="panel-header">
+        <div class="panel-title" *ngIf="getTemplate('title') != null">
+            <ng-content *ngTemplateOutlet="getTemplate('title')"></ng-content>
+        </div>
+        <div class="panel-header-action">
+            <ng-content *ngTemplateOutlet="getTemplate('actions')"></ng-content>
+        </div>
+    </div>
+    <div class="panel-content">
+        <ng-content *ngTemplateOutlet="getTemplate('content')"></ng-content>
+    </div>
+    <div class="panel-footer" *ngIf="getTemplate('footer') != null">
+        <ng-content *ngTemplateOutlet="getTemplate('footer')"></ng-content>
+    </div>
+</div>

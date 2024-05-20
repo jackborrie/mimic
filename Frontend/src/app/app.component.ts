@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {debounceTime, fromEvent, Subscription, throttleTime}                              from 'rxjs';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {debounceTime, fromEvent, Subscription}                                                       from 'rxjs';
 import {AppStateService, ThemeInterface}                                                  from './services/app-state.service';
-import {Toast, ToastService}             from "./services/toast.service";
-import {LinkedList}                      from "./lib/linked-list";
+import {Toast, ToastService}                                                              from "./services/toast.service";
+import {MimicDialog}                                                                      from "./directives/mimic-dialog.directive";
 
 @Component({
     selector: 'app-root',
@@ -10,11 +10,13 @@ import {LinkedList}                      from "./lib/linked-list";
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
+    @ViewChildren(MimicDialog) dialogs!: QueryList<MimicDialog>;
 
     theme: ThemeInterface | null = null;
     protected toasts: Toast[] = [];
 
     protected isMobile: boolean = false;
+
 
     private _subscription: Subscription = new Subscription();
 
@@ -51,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         this._subscription.add(toastSubscription);
 
         const windowResizeSubscription = fromEvent(window, 'resize')
-            .pipe (
+            .pipe(
                 debounceTime(500)
             )
             .subscribe(() => {
@@ -59,6 +61,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             })
 
         this._subscription.add(windowResizeSubscription);
+
     }
 
     ngOnDestroy(): void {
@@ -68,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     ngAfterViewInit(): void {
     }
 
-    protected clearToast (toast: Toast) {
+    protected clearToast(toast: Toast) {
         this._toast.hideToast(toast);
     }
 }

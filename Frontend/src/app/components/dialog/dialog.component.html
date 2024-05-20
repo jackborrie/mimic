@@ -1,0 +1,18 @@
+<div class="dialog-container {{displayDialog ? 'show' : ''}}">
+    <div class="dialog">
+        <div class="dialog-header">
+            <div class="dialog-title">
+                <ng-content *ngTemplateOutlet="getTemplate('title')"></ng-content>
+            </div>
+            <div class="dialog-actions">
+                <button mButton icon="fa-x" (click)="hide()"></button>
+            </div>
+        </div>
+        <div class="content">
+            <ng-content *ngTemplateOutlet="getTemplate('content')"></ng-content>
+        </div>
+        <div class="footer" *ngIf="getTemplate('footer') != null">
+            <ng-content *ngTemplateOutlet="getTemplate('footer')"></ng-content>
+        </div>
+    </div>
+</div>

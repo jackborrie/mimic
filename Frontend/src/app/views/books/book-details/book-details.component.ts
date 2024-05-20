@@ -1,11 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router}       from '@angular/router';
+import {Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {ActivatedRoute, Router}                                                       from '@angular/router';
 import {BookService}                  from "../../../services/book.service";
 import {Subscription}                 from 'rxjs/internal/Subscription';
 import {Book}                         from "../../../models/book";
 import {RequestService}               from "../../../services/request.service";
 import {saveAs}                       from 'file-saver';
 import {Toast, ToastService}                 from "../../../services/toast.service";
+import {MimicDialog}                             from "../../../directives/mimic-dialog.directive";
+import {DialogComponent}                                                              from "../../../components/dialog/dialog.component";
+import {Tag}                                                                          from "../../../models/tag";
 
 @Component({
     selector: 'app-book-details',
@@ -14,9 +17,14 @@ import {Toast, ToastService}                 from "../../../services/toast.servi
 })
 export class BookDetailsComponent implements OnInit, OnDestroy {
 
+    @ViewChild('editTagsDialog')
+    editTagsDialog!: DialogComponent;
+
     private _bookId!: string;
     protected book: Book | null = null;
     protected deletionConfirmation: boolean = false;
+
+    protected tags: Tag[] = [];
 
     private _subscriptions: Subscription = new Subscription();
 
@@ -97,5 +105,11 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
     private _noBookFound() {
         this._router.navigate(['']);
         // TODO add a toast that says the book with the id is invalid.
+    }
+
+    protected showTags () {
+        this.tags = this.book?.tags ?? [];
+
+        this.editTagsDialog.show()
     }
 }

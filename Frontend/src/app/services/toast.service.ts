@@ -1,5 +1,4 @@
 import {Injectable}                      from '@angular/core';
-import {LinkedList}                      from "../lib/linked-list";
 import {BehaviorSubject, Subject, timer} from "rxjs";
 
 export class Toast {
