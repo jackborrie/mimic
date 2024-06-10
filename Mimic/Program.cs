@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 
+builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<MimicContext>();
@@ -21,10 +22,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().WithOrigins(new []{"http://localhost:4201"}).AllowCredentials());
+app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().WithOrigins(new []{"http://localhost:4201", "http://192.168.68.109:4201"}).AllowCredentials());
 
 app.UseHttpsRedirection();
 
+app.MapRazorPages();
 app.MapControllers();
 
 app.Run();
