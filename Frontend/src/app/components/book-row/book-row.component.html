@@ -1,0 +1,16 @@
+<div class="book-row">
+    <div class="row-header">
+        <div class="row-title">
+            {{ rowTitle }}
+        </div>
+        <div class="actions pull-right">
+            <button mButton icon="fa-chevron-left" [disabled]="currentIndex === 0" (click)="setCurrentStep(currentIndex - 1)"></button>
+            <button mButton icon="fa-chevron-right" [disabled]="currentIndex === this.maxStep" (click)="setCurrentStep(currentIndex + 1)"></button>
+        </div>
+    </div>
+    <div class="book-container" (mousedown)="handleMouseDown($event)">
+        <div #bookWrapper class="book-wrapper" [style]="{cursor: getCurrentCursor()}">
+            <app-book *ngFor="let book of books" [book]="book"></app-book>
+        </div>
+    </div>
+</div>

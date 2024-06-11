@@ -174,7 +174,7 @@ namespace Mimic.Controllers
                 return Problem();
             }
             
-            return File(await System.IO.File.ReadAllBytesAsync(bookFilePath), "application/epub+zip", Path.GetFileName(bookFilePath));
+            return File(await System.IO.File.ReadAllBytesAsync(bookFilePath), "image/png", Path.GetFileName(bookFilePath));
         }
 
         [HttpDelete("{id}")]

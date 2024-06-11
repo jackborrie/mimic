@@ -39,15 +39,15 @@ void Migrate()
         }
     }
 
-    var path = "Migrations";
+    string path;
 
     if (singles)
     {
-        path = Path.Combine(path, "Single");
+        path = "Migrations\\Single";
     }
     else
     {
-        path = Path.Combine(path, "Repeatable");
+        path = "Migrations\\Repeatable";
     }
 
     var files = Directory.GetFiles(path).Where(p => p.EndsWith(".sql")).ToList();

@@ -1,0 +1,71 @@
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem 0;
+    width: 62px;
+}
+
+.top {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+}
+
+.bottom {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+}
+
+.toggle {
+    width: 60px;
+    background: var(--background-1);
+    border: none;
+    margin-bottom: 1rem;
+    transition: width 0.5s ease-in-out;
+}
+
+.out {
+    width: 200px;
+}
+
+.add-new-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+    justify-content: center;
+    position: relative;
+    width: 250px;
+    height: 200px;
+
+    border: var(--foreground-0) dotted 2px;
+    border-radius: var(--border-radius);
+}
+
+
+#fileDrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+    cursor: pointer;
+}
+
+.browse-file {
+    padding: 1rem;
+    border: var(--border);
+    border-radius: var(--border-radius);
+}

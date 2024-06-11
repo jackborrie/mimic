@@ -1,0 +1,20 @@
+.toast {
+    width: 300px;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: var(--border);
+
+    &.success {
+        background: var(--green);
+    }
+    &.info {
+        background: var(--blue);
+    }
+    &.warn {
+        background: var(--yellow);
+    }
+    &.error {
+        background: var(--red);
+    }
+}
+

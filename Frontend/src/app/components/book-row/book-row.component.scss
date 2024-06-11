@@ -1,0 +1,40 @@
+.book-row {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.row-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.row-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+}
+
+.book-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.book-wrapper {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+    width: 100%;
+}

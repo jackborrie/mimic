@@ -1,0 +1,28 @@
+<div class="tags">
+    <m-panel>
+        <ng-template mTemplate="title">Tags</ng-template>
+        <ng-template mTemplate="content">
+            <m-table [rows]="tags?.data ?? []" [columns]="['name', 'action']">
+                <ng-template mTemplate="nameHeader">
+                    <th>
+                        Name
+                    </th>
+                </ng-template>
+                <ng-template mTemplate="actionHeader">
+                    <th>
+
+                    </th>
+                </ng-template>
+                <ng-template mTemplate="name" let-node>
+                    {{node.text}}
+                </ng-template>
+                <ng-template mTemplate="action" let-node>
+                    <div class="actions">
+                        <button mButton icon="fa-pencil"></button>
+                        <button mButton color="warn" icon="fa-trash"></button>
+                    </div>
+                </ng-template>
+            </m-table>
+        </ng-template>
+    </m-panel>
+</div>

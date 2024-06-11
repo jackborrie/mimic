@@ -1,0 +1,11 @@
+<div class="books">
+    <div class="search">
+        <div class="pull-right book-actions">
+            <button mButton icon="fa-magnifying-glass"></button>
+            <button mButton icon="fa-filter"></button>
+        </div>
+    </div>
+    <div class="book-wrapper" *ngIf="books != null && books.data != null && books.data.length > 0">
+        <app-book [book]="book" *ngFor="let book of books.data"></app-book>
+    </div>
+</div>

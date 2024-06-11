@@ -23,14 +23,6 @@ public class Book : Model
     [Column("description")]
     public string? Description { get; set; }
     
-    [Column("isbn")]
-    [JsonPropertyName("isbn")]
-    public string? Isbn { get; set; }
-    
-    [Column("had_initial_search")]
-    [JsonPropertyName("had_initial_search")]
-    public bool HadInitialSearch { get; set; }
-    
     [JsonPropertyName("series_id")]
     [Column("series_id")]
     public string? SeriesId { get; set; }

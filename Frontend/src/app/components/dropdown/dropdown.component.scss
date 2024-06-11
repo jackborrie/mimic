@@ -1,0 +1,130 @@
+.dropdown {
+    position: relative;
+}
+
+.down {
+    .toggle-button {
+        &[class^="up-"], &[class^="right-"] {
+            border-top-right-radius: 0;
+        }
+
+        &[class^="right-"], &[class^="down-"] {
+            border-bottom-right-radius: 0;
+        }
+
+        &[class^="down-"], &[class^="left-"] {
+            border-bottom-left-radius: 0;
+        }
+
+        &[class^="left-"], &[class^="up-"] {
+            border-top-left-radius: 0;
+        }
+    }
+
+    .dropdown-wrapper {
+        display: flex;
+        z-index: 2;
+
+        &.right-up {
+            border-radius: var(--border-radius);
+            border-bottom-left-radius: 0;
+        }
+        &.right-down {
+            border-radius: var(--border-radius);
+            border-top-left-radius: 0;
+        }
+
+        &.left-up {
+            border-radius: var(--border-radius);
+            border-bottom-right-radius: 0;
+        }
+        &.left-down {
+            border-radius: var(--border-radius);
+            border-top-right-radius: 0;
+        }
+
+        &.down-left {
+            border-radius: var(--border-radius);
+            border-top-right-radius: 0;
+        }
+        &.down-right {
+            border-radius: var(--border-radius);
+            border-top-left-radius: 0;
+        }
+        &.up-left {
+            border-radius: var(--border-radius);
+            border-bottom-right-radius: 0;
+        }
+        &.up-right {
+            border-radius: var(--border-radius);
+            border-bottom-left-radius: 0;
+        }
+    }
+
+    .line-fix {
+        display: block;
+    }
+}
+
+.line-fix {
+    display: none;
+    background: var(--background-2);
+    position: absolute;
+    z-index: 2;
+
+    &.down-left {
+        right: 1px;
+        top: 36px;
+        width: 36px;
+        height: 1px;
+    }
+
+    &.right-up {
+        left: 37px;
+        bottom: 1px;
+        width: 1px;
+        height: 36px;
+    }
+
+    &.right-down {
+        left: 37px;
+        top: 1px;
+        width: 1px;
+        height: 36px;
+    }
+}
+
+.dropdown-wrapper {
+    display: none;
+    position: absolute;
+
+    flex-direction: column;
+    row-gap: 1rem;
+
+    padding: 1rem;
+
+    height: fit-content;
+    min-width: 150px;
+    width: fit-content;
+
+    background: var(--background-1);
+    //border-radius: var(--border-radius);
+    border: var(--border);
+
+    //border-top-right-radius: 0;
+
+    &.down-left {
+        right: 0;
+        top: 36px;
+    }
+
+    &.right-up {
+        bottom: 0;
+        left: 37px;
+    }
+
+    &.right-down {
+        top: 0;
+        left: 37px;
+    }
+}
